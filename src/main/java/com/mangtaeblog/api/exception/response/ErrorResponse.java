@@ -1,4 +1,4 @@
-package com.mangtaeblog.api.response;
+package com.mangtaeblog.api.exception.response;
 
 import lombok.Builder;
 import lombok.Getter;

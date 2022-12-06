@@ -1,6 +1,6 @@
-package com.mangtaeblog.api.controller;
+package com.mangtaeblog.api.exception.controller;
 
-import com.mangtaeblog.api.response.ErrorResponse;
+import com.mangtaeblog.api.exception.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;

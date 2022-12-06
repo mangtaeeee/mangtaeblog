@@ -1,9 +1,9 @@
 package com.mangtaeblog.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mangtaeblog.api.domain.Post;
-import com.mangtaeblog.api.repository.PostRepository;
-import com.mangtaeblog.api.request.PostCreate;
+import com.mangtaeblog.api.post.domain.Post;
+import com.mangtaeblog.api.post.repository.PostRepository;
+import com.mangtaeblog.api.post.request.PostCreate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

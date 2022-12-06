@@ -1,4 +1,4 @@
-package com.mangtaeblog.api.domain;
+package com.mangtaeblog.api.post.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;

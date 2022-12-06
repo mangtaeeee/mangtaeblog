@@ -1,9 +1,9 @@
-package com.mangtaeblog.api.controller;
+package com.mangtaeblog.api.post.controller;
 
-import com.mangtaeblog.api.domain.Post;
-import com.mangtaeblog.api.request.PostCreate;
-import com.mangtaeblog.api.response.PostResponse;
-import com.mangtaeblog.api.service.PostService;
+import com.mangtaeblog.api.post.domain.Post;
+import com.mangtaeblog.api.post.request.PostCreate;
+import com.mangtaeblog.api.post.response.PostResponse;
+import com.mangtaeblog.api.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

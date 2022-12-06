@@ -1,4 +1,4 @@
-package com.mangtaeblog.api.request;
+package com.mangtaeblog.api.post.request;
 
 import com.mangtaeblog.api.exception.InvalidRequest;
 import lombok.Builder;

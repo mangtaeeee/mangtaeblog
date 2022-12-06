@@ -1,10 +1,10 @@
-package com.mangtaeblog.api.service;
+package com.mangtaeblog.api.post.service;
 
-import com.mangtaeblog.api.domain.Post;
+import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.exception.PostNotFound;
-import com.mangtaeblog.api.repository.PostRepository;
-import com.mangtaeblog.api.request.PostCreate;
-import com.mangtaeblog.api.response.PostResponse;
+import com.mangtaeblog.api.post.repository.PostRepository;
+import com.mangtaeblog.api.post.request.PostCreate;
+import com.mangtaeblog.api.post.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class PostService {
         return postRepository.save(post);
 
     }
-
+    //글 1개 조회
     public PostResponse findOne(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostNotFound());
