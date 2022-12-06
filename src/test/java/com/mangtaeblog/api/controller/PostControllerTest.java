@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
@@ -79,6 +80,26 @@ class PostControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.validation.title").value("타이틀을 입력해 주세요."))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.validation.content").value("내용을 입력해 주세요."))
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("/posts")
+    void 글한개조회() throws Exception {
+        Post post = Post.builder()
+                .title("제목 입니다.")
+                .content("내용 입니다.")
+                .build();
+
+        postRepository.save(post);
+
+        mockMvc.perform(get("/posts/{postId}",post.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(post.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("제목 입니다."))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content").value("내용 입니다."))
+                .andDo(MockMvcResultHandlers.print());
+
     }
 
 

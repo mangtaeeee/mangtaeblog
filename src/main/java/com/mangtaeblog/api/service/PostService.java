@@ -1,8 +1,10 @@
 package com.mangtaeblog.api.service;
 
 import com.mangtaeblog.api.domain.Post;
+import com.mangtaeblog.api.exception.PostNotFound;
 import com.mangtaeblog.api.repository.PostRepository;
 import com.mangtaeblog.api.request.PostCreate;
+import com.mangtaeblog.api.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,17 @@ public class PostService {
                 .build();
 
         return postRepository.save(post);
+
+    }
+
+    public PostResponse findOne(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new PostNotFound());
+        return PostResponse.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .build();
 
     }
 }
