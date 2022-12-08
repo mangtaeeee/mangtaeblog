@@ -1,5 +1,8 @@
 package com.mangtaeblog.api.exception;
 
+import lombok.Getter;
+
+@Getter
 public class InvalidRequest extends MangtaeBlogException{
 
 

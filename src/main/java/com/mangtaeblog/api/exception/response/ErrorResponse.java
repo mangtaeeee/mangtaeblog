@@ -21,7 +21,7 @@ public class ErrorResponse {
         this.validation = validation != null ? validation : new HashMap<>();
     }
 
-    public void addValidation(String filedName, String message) {
-        this.validation.put(filedName,message);
+    public void addValidation(String fieldName, String errorMessage) {
+        this.validation.put(fieldName,errorMessage);
     }
 }
