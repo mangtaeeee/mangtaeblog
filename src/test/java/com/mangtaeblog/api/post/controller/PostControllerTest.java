@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.post.repository.PostRepository;
 import com.mangtaeblog.api.post.request.PostCreate;
+import com.mangtaeblog.api.post.request.PostEdit;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -152,5 +152,44 @@ class PostControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].content").value("내용 19"))
                 .andDo(MockMvcResultHandlers.print());
     }
+    @Test
+    @DisplayName("글 제목 수정")
+    void 글제목수정() throws Exception {
+        //given
+        Post post = Post.builder()
+                .title("제목 수정 전")
+                .content("내용입니다.")
+                .build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder()
+                .title("제목 수정했습니다.")
+                .content("내용입니다.")
+                .build();
+
+        mockMvc.perform(patch("/posts/{postId}", post.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(postEdit)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
+    @Test
+    void 글삭제() throws Exception {
+        //given
+        Post post = Post.builder()
+                .title("제목입니다.")
+                .content("내용입니다.")
+                .build();
+        postRepository.save(post);
+        //expected
+        mockMvc.perform(delete("/posts/{postId}", post.getId())
+                    .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
 
 }

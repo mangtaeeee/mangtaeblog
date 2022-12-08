@@ -59,7 +59,7 @@ public class PostService {
     @Transactional
     public void edit(Long id, PostEdit postEdit){
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("존재하지 않는 글입니다."));
+                .orElseThrow(() -> new PostNotFound());
 
         PostEditor.PostEditorBuilder postEditorBuilder = post.toEditor();
 
@@ -68,7 +68,12 @@ public class PostService {
                 .build();
 
         post.edit(postEditor);
+    }
 
+    public void delete(Long id){
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new PostNotFound());
 
+        postRepository.delete(post);
     }
 }
