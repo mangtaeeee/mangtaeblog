@@ -47,6 +47,7 @@ class PostControllerTest {
     @DisplayName("/posts 요청 시 json데이터로 저장한다")
     void 저장() throws Exception {
         //given
+
         PostCreate request = PostCreate.builder()
                 .title("제목 입니다.")
                 .content("내용 입니다.")

@@ -1,5 +1,6 @@
 package com.mangtaeblog.api.post.domain;
 
+import com.mangtaeblog.api.shared.domain.BasicTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //매개 변수가 없는 기본생성자
 @Builder @AllArgsConstructor
-public class Post {
+public class Post extends BasicTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

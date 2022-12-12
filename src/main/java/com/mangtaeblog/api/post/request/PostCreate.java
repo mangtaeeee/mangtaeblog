@@ -1,10 +1,7 @@
 package com.mangtaeblog.api.post.request;
 
 import com.mangtaeblog.api.exception.InvalidRequest;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -12,7 +9,8 @@ import javax.validation.constraints.NotBlank;
  * @param : 글 작성을 위한 클래스
  */
 @Setter
-@Getter @ToString
+@Getter @AllArgsConstructor @NoArgsConstructor
+@Builder
 public class PostCreate {
 
     @NotBlank(message = "타이틀을 입력해 주세요.")
@@ -22,16 +20,10 @@ public class PostCreate {
     private String content;
 
     private String writer;
-
     private int view;
+    private String createDate;
+    private String updateDate;
 
-    @Builder
-    public PostCreate(String title, String content, String writer, int view) {
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-        this.view = view;
-    }
 
     public void validate() {
         if (title.contains("바보")) {
