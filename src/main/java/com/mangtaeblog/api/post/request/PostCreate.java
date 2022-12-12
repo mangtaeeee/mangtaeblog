@@ -21,10 +21,16 @@ public class PostCreate {
     @NotBlank(message = "내용을 입력해 주세요.")
     private String content;
 
+    private String writer;
+
+    private int view;
+
     @Builder
-    public PostCreate(String title, String content) {
+    public PostCreate(String title, String content, String writer, int view) {
         this.title = title;
         this.content = content;
+        this.writer = writer;
+        this.view = view;
     }
 
     public void validate() {

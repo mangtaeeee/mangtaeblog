@@ -50,6 +50,7 @@ class PostControllerTest {
         PostCreate request = PostCreate.builder()
                 .title("제목 입니다.")
                 .content("내용 입니다.")
+                .writer("작성자입니다")
                 .build();
 
         String json = objectMapper.writeValueAsString(request);

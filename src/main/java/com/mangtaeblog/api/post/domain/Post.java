@@ -1,31 +1,29 @@
 package com.mangtaeblog.api.post.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //매개 변수가 없는 기본생성자
+@Builder @AllArgsConstructor
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 500)
     private String title;
 
     @Lob
     private String content;
 
-    @Builder
-    public Post(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
+    private String writer;
+
+    @Column(columnDefinition = "integer default 0",nullable = false)
+    private int view;
 
     public PostEditor.PostEditorBuilder toEditor() {
         return PostEditor.builder()

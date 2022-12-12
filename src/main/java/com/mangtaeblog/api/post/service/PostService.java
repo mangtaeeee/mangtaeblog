@@ -28,12 +28,18 @@ public class PostService {
         Post post = Post.builder()
                 .title(postCreate.getTitle())
                 .content(postCreate.getContent())
+                .writer(postCreate.getWriter())
+                .view(0)
                 .build();
 
         return postRepository.save(post);
 
     }
-    //글 1개 조회
+
+    /**
+     * @param : READ 단건 조회
+     */
+    @Transactional(readOnly = true)
     public PostResponse findOne(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostNotFound());
@@ -44,7 +50,11 @@ public class PostService {
                 .build();
     }
 
-    //글 전체 조회
+    /**
+     *
+     * @param : READ 글 전체 조회
+     */
+    @Transactional(readOnly = true)
     public List<PostResponse> findAll(PostSearch postSearch) {
         List<PostResponse> collect = postRepository.getList(postSearch).stream()
                 .map(post -> PostResponse.builder()
