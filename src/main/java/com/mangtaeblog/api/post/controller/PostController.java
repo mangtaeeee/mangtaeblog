@@ -1,6 +1,5 @@
 package com.mangtaeblog.api.post.controller;
 
-import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.post.request.PostCreate;
 import com.mangtaeblog.api.post.request.PostEdit;
 import com.mangtaeblog.api.post.request.PostSearch;
@@ -22,9 +21,9 @@ public class PostController {
 
 
     @PostMapping("/posts")
-    public Post post(@RequestBody @Valid PostCreate postCreate) {
+    public void post(@RequestBody @Valid PostCreate postCreate) {
         postCreate.validate();
-        return postService.write(postCreate);
+        postService.write(postCreate);
     }
 
     @GetMapping("/posts/{postId}")

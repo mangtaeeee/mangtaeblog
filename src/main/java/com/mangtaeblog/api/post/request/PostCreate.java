@@ -24,6 +24,8 @@ public class PostCreate {
     private String createDate;
     private String updateDate;
 
+    private Long memberId;
+
 
     public void validate() {
         if (title.contains("바보")) {

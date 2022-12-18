@@ -17,9 +17,11 @@ import java.time.LocalDateTime;
 public abstract class BasicTimeEntity {
 
     @CreatedDate
-    @Column(updatable = false) //등록시 한번만 작성 되면 되기에 false로 두었음
+    @Column(name = "create_date",updatable = false) //등록시 한번만 작성 되면 되기에 false로 두었음
     private LocalDateTime createDate;
 
     @LastModifiedDate
+    @Column(name = "update_date")
     private LocalDateTime updateDate;
+
 }

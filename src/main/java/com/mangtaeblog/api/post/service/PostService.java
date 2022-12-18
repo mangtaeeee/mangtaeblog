@@ -1,6 +1,9 @@
 package com.mangtaeblog.api.post.service;
 
+import com.mangtaeblog.api.exception.MemberNotFound;
 import com.mangtaeblog.api.exception.PostNotFound;
+import com.mangtaeblog.api.member.domain.Member;
+import com.mangtaeblog.api.member.repository.MemberRepository;
 import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.post.domain.PostEditor;
 import com.mangtaeblog.api.post.repository.PostRepository;
@@ -21,15 +24,20 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
 
     //글 저장
     public Post write(PostCreate postCreate) {
+
+        Member member = memberRepository.findById(postCreate.getMemberId())
+                .orElseThrow(() -> new MemberNotFound());
 
         Post post = Post.builder()
                 .title(postCreate.getTitle())
                 .content(postCreate.getContent())
                 .writer(postCreate.getWriter())
                 .view(0)
+                .member(member)
                 .build();
 
         return postRepository.save(post);
@@ -47,6 +55,9 @@ public class PostService {
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
+                .writer(post.getWriter())
+                .createDate(post.getCreateDate())
+                .updateDate(post.getUpdateDate())
                 .build();
     }
 
@@ -61,6 +72,9 @@ public class PostService {
                         .id(post.getId())
                         .title(post.getTitle())
                         .content(post.getContent())
+                        .writer(post.getWriter())
+                        .updateDate(post.getUpdateDate())
+                        .createDate(post.getCreateDate())
                         .build())
                 .collect(Collectors.toList());
         return collect;
@@ -78,6 +92,7 @@ public class PostService {
                 .build();
 
         post.edit(postEditor);
+
     }
 
     public void delete(Long id){
