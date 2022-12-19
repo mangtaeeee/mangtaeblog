@@ -1,8 +1,10 @@
 package com.mangtaeblog.api.member.controller;
 
 import com.mangtaeblog.api.member.request.MemberCreate;
+import com.mangtaeblog.api.member.response.MemberResponse;
 import com.mangtaeblog.api.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -12,12 +14,14 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/member/join")
-    public void join(@RequestBody MemberCreate member){
-        memberService.join(member);
+    public ResponseEntity join(@RequestBody MemberCreate member){
+        return ResponseEntity.ok(memberService.join(member));
     }
 
     @GetMapping("/member/{memberId}")
-    public void findOne(@PathVariable Long id){
-        memberService.findOne(id);
+    public MemberResponse findOne(@PathVariable Long memberId){
+        return memberService.findOne(memberId);
     }
+
+
 }

@@ -5,6 +5,7 @@ import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.member.domain.Role;
 import com.mangtaeblog.api.member.repository.MemberRepository;
 import com.mangtaeblog.api.member.request.MemberCreate;
+import com.mangtaeblog.api.member.response.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +28,11 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public Member findOne(Long id){
+    public MemberResponse findOne(Long id){
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new MemberNotFound());
-        return Member.builder()
+        return MemberResponse.builder()
+                .id(member.getId())
                 .username(member.getUsername())
                 .userId(member.getUserId())
                 .email(member.getEmail())

@@ -27,6 +27,7 @@ public class PostService {
     private final MemberRepository memberRepository;
 
     //글 저장
+    @Transactional
     public Post write(PostCreate postCreate) {
 
         Member member = memberRepository.findById(postCreate.getMemberId())
@@ -94,7 +95,7 @@ public class PostService {
         post.edit(postEditor);
 
     }
-
+    @Transactional
     public void delete(Long id){
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostNotFound());
