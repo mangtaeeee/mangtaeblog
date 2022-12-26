@@ -1,8 +1,11 @@
 package com.mangtaeblog.api.comment.service;
 
 import com.mangtaeblog.api.comment.domain.Comment;
+import com.mangtaeblog.api.comment.domain.CommentNotFound;
 import com.mangtaeblog.api.comment.repository.CommentRepository;
 import com.mangtaeblog.api.comment.request.CommentCreate;
+import com.mangtaeblog.api.comment.request.CommentEdit;
+import com.mangtaeblog.api.comment.response.CommentResponse;
 import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.member.domain.MemberNotFound;
 import com.mangtaeblog.api.member.repository.MemberRepository;
@@ -13,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class CommentService {
@@ -22,13 +28,13 @@ public class CommentService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Comment save(CommentCreate commentCreate){
+    public Long save(Long postId,CommentCreate commentCreate){
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFound());
 
         Member member = memberRepository.findById(commentCreate.getMemberId())
                 .orElseThrow(() -> new MemberNotFound());
-
-        Post post = postRepository.findById(commentCreate.getPostId())
-                .orElseThrow(() -> new PostNotFound());
 
         Comment comment = Comment.builder()
                 .content(commentCreate.getContent())
@@ -36,7 +42,26 @@ public class CommentService {
                 .member(member)
                 .build();
 
-        return commentRepository.save(comment);
+        commentRepository.save(comment);
+
+        return comment.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommentResponse> findAll(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new PostNotFound());
+
+        List<Comment> comments = post.getComments();
+
+        return comments.stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void update(CommentEdit commentEdit) {
+        Comment comment = commentRepository.findById(commentEdit.getId())
+                .orElseThrow(() -> new CommentNotFound());
+
 
     }
 

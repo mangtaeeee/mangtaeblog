@@ -14,7 +14,7 @@ public class CommentResponse {
 
     private Long id;
     private String content;
-    private String username;
+    private String userId;
     private Long postId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
@@ -29,7 +29,7 @@ public class CommentResponse {
     public CommentResponse(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();
-        this.username = comment.getMember().getUsername();;
+        this.userId = comment.getMember().getUserId();;
         this.postId = comment.getPost().getId();
         this.createDate = comment.getCreateDate();
         this.updateDate = comment.getUpdateDate();

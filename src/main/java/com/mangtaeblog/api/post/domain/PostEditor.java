@@ -42,9 +42,6 @@ public class PostEditor {
             return new PostEditor(this.title, this.content);
         }
 
-        public String toString() {
-            return "PostEditor.PostEditorBuilder(title=" + this.title + ", content=" + this.content + ")";
-        }
     }
 
 }

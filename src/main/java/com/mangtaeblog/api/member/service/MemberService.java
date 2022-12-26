@@ -17,6 +17,7 @@ public class MemberService {
 
     public Member join(MemberCreate request) {
 
+
         Member member = Member.builder()
                 .userId(request.getUserId())
                 .username(request.getUsername())

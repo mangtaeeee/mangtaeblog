@@ -3,6 +3,7 @@ package com.mangtaeblog.api.comment.service;
 import com.mangtaeblog.api.comment.domain.Comment;
 import com.mangtaeblog.api.comment.repository.CommentRepository;
 import com.mangtaeblog.api.comment.request.CommentCreate;
+import com.mangtaeblog.api.comment.response.CommentResponse;
 import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.member.domain.Role;
 import com.mangtaeblog.api.member.repository.MemberRepository;
@@ -16,6 +17,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -73,12 +76,10 @@ class CommentServiceTest {
         CommentCreate commentCreate = CommentCreate.builder()
                 .content("내용입니다.")
                 .memberId(member.getId())
-                .postId(post.getId())
-                .userId(member.getUserId())
                 .build();
 
         //when
-        commentService.save(commentCreate);
+        commentService.save(post.getId(),commentCreate);
 
         //then
         Assertions.assertEquals(1L, commentRepository.count());
@@ -86,6 +87,46 @@ class CommentServiceTest {
         Assertions.assertEquals("내용입니다.",comment.getContent());
 
     }
+
+    @Test
+    @DisplayName("댓글 조회")
+    void 댓글_조회() {
+
+        Member member = Member.builder()
+                .userId("asd9658")
+                .username("홍길동")
+                .email("asd9658@naver.com")
+                .password("1234")
+                .role(Role.ADMIN)
+                .build();
+
+        memberRepository.save(member);
+
+        Post post = Post.builder()
+                .title("제목입니다.")
+                .content("내용입니다.")
+                .writer("작성자입니다.")
+                .member(member)
+                .build();
+
+        postRepository.save(post);
+
+        CommentCreate commentCreate = CommentCreate.builder()
+                .content("내용입니다.")
+                .memberId(member.getId())
+                .build();
+
+        commentService.save(post.getId(), commentCreate);
+
+        //when
+        List<CommentResponse> responses = commentService.findAll(post.getId());
+
+        //then
+        assertEquals(1L,responses.size());
+        assertEquals(post.getId(),responses.get(0).getPostId());
+
+    }
+
 
 
 }

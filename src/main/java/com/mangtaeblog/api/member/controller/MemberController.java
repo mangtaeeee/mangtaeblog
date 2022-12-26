@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RestController
 public class MemberController {
@@ -13,8 +15,9 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/member/join")
-    public ResponseEntity join(@RequestBody MemberCreate member){
-        return ResponseEntity.ok(memberService.join(member));
+    public ResponseEntity join(@RequestBody @Valid MemberCreate member){
+        memberService.join(member);
+        return ResponseEntity.ok(member.getId());
     }
 
     @GetMapping("/member/{memberId}")
