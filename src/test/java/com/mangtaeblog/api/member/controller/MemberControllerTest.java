@@ -7,6 +7,7 @@ import com.mangtaeblog.api.member.request.MemberCreate;
 import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.post.repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ class MemberControllerTest {
 
     @Autowired
     private PostRepository postRepository;
+
+    @BeforeEach
+    void clean(){
+        memberRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("회원가입 테스트")
@@ -94,7 +100,5 @@ class MemberControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value("asd9658"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("홍길동"))
                 .andDo(MockMvcResultHandlers.print());
-
-
     }
 }

@@ -1,6 +1,6 @@
 package com.mangtaeblog.api.member.service;
 
-import com.mangtaeblog.api.exception.MemberNotFound;
+import com.mangtaeblog.api.member.domain.MemberNotFound;
 import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.member.domain.Role;
 import com.mangtaeblog.api.member.repository.MemberRepository;
@@ -37,7 +37,16 @@ public class MemberService {
                 .userId(member.getUserId())
                 .email(member.getEmail())
                 .password(member.getPassword())
+                .createDate(member.getCreateDate())
+                .updateDate(member.getUpdateDate())
                 .role(member.getRole())
                 .build();
+    }
+
+    public void secession(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new MemberNotFound());
+
+        memberRepository.delete(member);
     }
 }

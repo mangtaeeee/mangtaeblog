@@ -1,7 +1,7 @@
 package com.mangtaeblog.api.exception.controller;
 
 import com.mangtaeblog.api.exception.MangtaeBlogException;
-import com.mangtaeblog.api.exception.PostNotFound;
+import com.mangtaeblog.api.post.domain.PostNotFound;
 import com.mangtaeblog.api.exception.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

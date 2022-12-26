@@ -20,9 +20,6 @@ public class PostCreate {
     private String content;
 
     private String writer;
-    private int view;
-    private String createDate;
-    private String updateDate;
 
     private Long memberId;
 

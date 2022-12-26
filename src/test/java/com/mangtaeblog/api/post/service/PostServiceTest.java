@@ -48,6 +48,7 @@ class PostServiceTest {
     @Test
     @DisplayName("글 작성")
     void 글작성() {
+        //given
         Member member = Member.builder()
                 .userId("asd9658")
                 .username("홍길동")
@@ -60,7 +61,7 @@ class PostServiceTest {
 
 
 
-        //given
+
         PostCreate postCreate = PostCreate.builder()
                 .title("제목입니다.")
                 .content("내용입니다.")
@@ -97,7 +98,7 @@ class PostServiceTest {
                 .mapToObj(i -> Post.builder()
                         .title("제목 " + i)
                         .content("내용 " + i)
-                        .writer("작성자 " + i)
+                        .writer(member.getUserId() + i)
                         .member(member)
                         .build())
                 .collect(Collectors.toList());

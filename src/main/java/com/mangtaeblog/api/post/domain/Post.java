@@ -1,14 +1,19 @@
 package com.mangtaeblog.api.post.domain;
 
+import com.mangtaeblog.api.comment.domain.Comment;
 import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.shared.domain.BasicTimeEntity;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED) //매개 변수가 없는 기본생성자
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(
         name = "POST_SEQ_GENERATOR",
         sequenceName = "POST_SEQ",
@@ -37,13 +42,17 @@ public class Post extends BasicTimeEntity {
     @JoinColumn(name = "member_id",nullable = false)
     private Member member;
 
+    @OneToMany(mappedBy = "post",orphanRemoval = true)
+    private List<Comment> comments;
+
     @Builder
-    public Post(String title, String content, String writer, int view, Member member) {
+    public Post(String title, String content, String writer, int view, Member member, List<Comment> comments) {
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.view = view;
         this.member = member;
+        this.comments = comments;
     }
 
     public PostEditor.PostEditorBuilder toEditor() {

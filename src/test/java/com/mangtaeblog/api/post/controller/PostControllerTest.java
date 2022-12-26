@@ -67,7 +67,7 @@ class PostControllerTest {
         PostCreate postCreate = PostCreate.builder()
                 .title("제목 입니다.")
                 .content("내용 입니다.")
-                .writer("작성자 입니다.")
+                .writer(member.getUserId())
                 .memberId(member.getId())
                 .build();
 

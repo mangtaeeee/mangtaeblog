@@ -1,6 +1,8 @@
-package com.mangtaeblog.api.exception;
+package com.mangtaeblog.api.member.domain;
 
-public class MemberNotFound extends MangtaeBlogException{
+import com.mangtaeblog.api.exception.MangtaeBlogException;
+
+public class MemberNotFound extends MangtaeBlogException {
 
     private static final String MESSAGE = "존재하지 않는 회원 입니다.";
 

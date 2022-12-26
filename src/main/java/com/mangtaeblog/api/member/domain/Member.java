@@ -1,5 +1,6 @@
 package com.mangtaeblog.api.member.domain;
 
+import com.mangtaeblog.api.comment.domain.Comment;
 import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.shared.domain.BasicTimeEntity;
 import lombok.Builder;
@@ -40,6 +41,10 @@ public class Member extends BasicTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Post> postList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList = new ArrayList<>();
+
 
     @Builder
     public Member(String username, String userId, String email, String password, Role role) {

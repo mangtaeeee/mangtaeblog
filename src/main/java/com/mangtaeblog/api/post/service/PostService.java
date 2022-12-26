@@ -1,11 +1,13 @@
 package com.mangtaeblog.api.post.service;
 
-import com.mangtaeblog.api.exception.MemberNotFound;
-import com.mangtaeblog.api.exception.PostNotFound;
+import com.mangtaeblog.api.comment.repository.CommentRepository;
+import com.mangtaeblog.api.comment.response.CommentResponse;
 import com.mangtaeblog.api.member.domain.Member;
+import com.mangtaeblog.api.member.domain.MemberNotFound;
 import com.mangtaeblog.api.member.repository.MemberRepository;
 import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.post.domain.PostEditor;
+import com.mangtaeblog.api.post.domain.PostNotFound;
 import com.mangtaeblog.api.post.repository.PostRepository;
 import com.mangtaeblog.api.post.request.PostCreate;
 import com.mangtaeblog.api.post.request.PostEdit;
@@ -25,6 +27,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final CommentRepository commentRepository;
 
     //글 저장
     @Transactional
@@ -36,8 +39,7 @@ public class PostService {
         Post post = Post.builder()
                 .title(postCreate.getTitle())
                 .content(postCreate.getContent())
-                .writer(postCreate.getWriter())
-                .view(0)
+                .writer(member.getUserId())
                 .member(member)
                 .build();
 
@@ -59,6 +61,7 @@ public class PostService {
                 .writer(post.getWriter())
                 .createDate(post.getCreateDate())
                 .updateDate(post.getUpdateDate())
+                .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
                 .build();
     }
 

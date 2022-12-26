@@ -7,6 +7,7 @@ import com.mangtaeblog.api.post.response.PostResponse;
 import com.mangtaeblog.api.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,14 +22,15 @@ public class PostController {
 
 
     @PostMapping("/posts")
-    public void post(@RequestBody @Valid PostCreate postCreate) {
+    public ResponseEntity post(@RequestBody @Valid PostCreate postCreate) {
         postCreate.validate();
         postService.write(postCreate);
+       return ResponseEntity.ok(postCreate);
     }
 
     @GetMapping("/posts/{postId}")
-    public PostResponse findOne(@PathVariable Long postId) {
-        return postService.findOne(postId);
+    public ResponseEntity findOne(@PathVariable Long postId) {
+        return ResponseEntity.ok(postService.findOne(postId));
     }
 
     @GetMapping("/posts")
@@ -37,13 +39,15 @@ public class PostController {
     }
 
     @PatchMapping("/posts/{postId}")
-    public void edit(@PathVariable Long postId, @RequestBody @Valid PostEdit postEdit){
+    public ResponseEntity edit(@PathVariable Long postId, @RequestBody @Valid PostEdit postEdit){
         postService.edit(postId,postEdit);
+        return ResponseEntity.ok(postId);
     }
 
     @DeleteMapping("/posts/{postId}")
-    public void delete(@PathVariable Long postId) {
+    public ResponseEntity delete(@PathVariable Long postId) {
         postService.delete(postId);
+        return ResponseEntity.ok(postId);
     }
 
 

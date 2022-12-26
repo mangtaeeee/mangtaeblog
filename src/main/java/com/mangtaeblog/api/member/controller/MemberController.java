@@ -1,7 +1,6 @@
 package com.mangtaeblog.api.member.controller;
 
 import com.mangtaeblog.api.member.request.MemberCreate;
-import com.mangtaeblog.api.member.response.MemberResponse;
 import com.mangtaeblog.api.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +18,14 @@ public class MemberController {
     }
 
     @GetMapping("/member/{memberId}")
-    public MemberResponse findOne(@PathVariable Long memberId){
-        return memberService.findOne(memberId);
+    public ResponseEntity findOne(@PathVariable Long memberId){
+        return ResponseEntity.ok(memberService.findOne(memberId));
     }
 
+    @DeleteMapping("/member/{memberId}")
+    public ResponseEntity delete(@PathVariable Long memberId) {
+        memberService.secession(memberId);
+        return ResponseEntity.ok(memberId);
+    }
 
 }

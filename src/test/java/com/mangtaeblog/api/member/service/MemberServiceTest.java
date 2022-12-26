@@ -67,6 +67,22 @@ class MemberServiceTest {
         Assertions.assertEquals(member.getId(), response.getId());
 
     }
+    @Test
+    void 회원탈퇴(){
+        //given
+        Member member = Member.builder()
+                .userId("asd9658")
+                .username("홍길동")
+                .email("asd9658@naver.com")
+                .password("1234")
+                .build();
+
+        memberRepository.save(member);
+        //when
+        memberService.secession(member.getId());
+        //then
+        Assertions.assertEquals(0, memberRepository.count());
+    }
 
 
 }
