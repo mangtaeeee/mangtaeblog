@@ -1,6 +1,7 @@
 package com.mangtaeblog.api.comment.controller;
 
 import com.mangtaeblog.api.comment.request.CommentCreate;
+import com.mangtaeblog.api.comment.request.CommentEdit;
 import com.mangtaeblog.api.comment.response.CommentResponse;
 import com.mangtaeblog.api.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/post/{postId}/comment")
+    @PostMapping("/post/{postId}/comments")
     public ResponseEntity save(@PathVariable Long postId, @RequestBody @Valid CommentCreate commentCreate) {
         return ResponseEntity.ok(commentService.save(postId,commentCreate));
     }
@@ -26,4 +27,10 @@ public class CommentController {
         return commentService.findAll(postId);
     }
 
+
+    @PatchMapping("/post/{postId}/comments/{commentId}")
+    public ResponseEntity update(@PathVariable Long commentId, @RequestBody @Valid CommentEdit commentEdit) {
+        commentService.update(commentId, commentEdit);
+        return ResponseEntity.ok(commentEdit);
+    }
 }

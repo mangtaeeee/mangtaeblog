@@ -1,6 +1,7 @@
 package com.mangtaeblog.api.comment.service;
 
 import com.mangtaeblog.api.comment.domain.Comment;
+import com.mangtaeblog.api.comment.domain.CommentEditor;
 import com.mangtaeblog.api.comment.domain.CommentNotFound;
 import com.mangtaeblog.api.comment.repository.CommentRepository;
 import com.mangtaeblog.api.comment.request.CommentCreate;
@@ -58,16 +59,24 @@ public class CommentService {
     }
 
     @Transactional
-    public void update(CommentEdit commentEdit) {
-        Comment comment = commentRepository.findById(commentEdit.getId())
+    public void update(Long commentId, CommentEdit commentEdit) {
+        Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentNotFound());
 
 
+        CommentEditor.CommentEditorBuilder commentEditorBuilder = comment.toEditor();
+
+        CommentEditor commentEditor = commentEditorBuilder.content(commentEdit.getContent())
+                .build();
+
+        comment.edit(commentEditor);
     }
 
-
-
-
-
+    @Transactional
+    public void delete(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CommentNotFound());
+        commentRepository.delete(comment);
+    }
 
 }

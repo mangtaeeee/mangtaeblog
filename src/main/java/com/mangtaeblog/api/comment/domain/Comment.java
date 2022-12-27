@@ -53,4 +53,15 @@ public class Comment extends BasicTimeEntity {
         this.member = member;
         this.post = post;
     }
+
+    public CommentEditor.CommentEditorBuilder toEditor() {
+        return CommentEditor.builder()
+                .content(content);
+    }
+
+    public void edit(CommentEditor commentEditor) {
+        content = commentEditor.getContent();
+    }
+
+
 }
