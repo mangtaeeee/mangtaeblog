@@ -1,6 +1,7 @@
 package com.mangtaeblog.api.post.response;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mangtaeblog.api.comment.response.CommentResponse;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,10 @@ public class PostResponse {
     private final String content;
     private final String writer;
     private final int view;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private final LocalDateTime createDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private final LocalDateTime updateDate;
     private List<CommentResponse>  comments = new ArrayList<>();
 
