@@ -23,7 +23,6 @@ public class CommentController {
     public ResponseEntity save(@PathVariable Long postId, @RequestBody @Valid CommentCreate commentCreate) {
         return ResponseEntity.ok(commentService.save(postId,commentCreate));
     }
-
     @GetMapping("/posts/{postId}/comments")
     public List<CommentResponse> findComments(@PathVariable Long postId) {
         return commentService.findAll(postId);
