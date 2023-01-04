@@ -1,6 +1,5 @@
 package com.mangtaeblog.api.post.service;
 
-import com.mangtaeblog.api.comment.repository.CommentRepository;
 import com.mangtaeblog.api.comment.response.CommentResponse;
 import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.member.domain.MemberNotFound;
@@ -27,11 +26,10 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
-    private final CommentRepository commentRepository;
 
     //글 저장
     @Transactional
-    public Post write(PostCreate postCreate) {
+    public void write(PostCreate postCreate) {
 
         Member member = memberRepository.findById(postCreate.getMemberId())
                 .orElseThrow(() -> new MemberNotFound());
@@ -43,7 +41,7 @@ public class PostService {
                 .member(member)
                 .build();
 
-        return postRepository.save(post);
+        postRepository.save(post);
 
     }
 
@@ -59,6 +57,7 @@ public class PostService {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .writer(post.getWriter())
+                .view(post.getView())
                 .createDate(post.getCreateDate())
                 .updateDate(post.getUpdateDate())
                 .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
@@ -77,8 +76,10 @@ public class PostService {
                         .title(post.getTitle())
                         .content(post.getContent())
                         .writer(post.getWriter())
+                        .view(post.getView())
                         .updateDate(post.getUpdateDate())
                         .createDate(post.getCreateDate())
+                        .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
         return collect;
@@ -104,5 +105,10 @@ public class PostService {
                 .orElseThrow(() -> new PostNotFound());
 
         postRepository.delete(post);
+    }
+
+    @Transactional
+    public int updateView(Long id) {
+        return postRepository.updateView(id);
     }
 }

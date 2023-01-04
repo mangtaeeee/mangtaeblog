@@ -2,6 +2,8 @@ package com.mangtaeblog.api.post.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mangtaeblog.api.comment.domain.Comment;
+import com.mangtaeblog.api.comment.repository.CommentRepository;
 import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.member.domain.Role;
 import com.mangtaeblog.api.member.repository.MemberRepository;
@@ -44,10 +46,14 @@ class PostControllerTest {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     @BeforeEach
     void clean(){
         postRepository.deleteAll();
         memberRepository.deleteAll();
+        commentRepository.deleteAll();
     }
 
     @Test
@@ -67,7 +73,6 @@ class PostControllerTest {
         PostCreate postCreate = PostCreate.builder()
                 .title("제목 입니다.")
                 .content("내용 입니다.")
-                .writer(member.getUserId())
                 .memberId(member.getId())
                 .build();
 
@@ -107,7 +112,6 @@ class PostControllerTest {
         PostCreate postCreate = PostCreate.builder()
                 .title("")
                 .content("")
-                .writer(null)
                 .memberId(member.getId())
                 .build();
 
@@ -146,6 +150,13 @@ class PostControllerTest {
                 .build();
 
         postRepository.save(post);
+
+        Comment comment = Comment.builder()
+                .post(post)
+                .member(member)
+                .content("내용입니다.")
+                .build();
+        commentRepository.save(comment);
 
         mockMvc.perform(get("/posts/{postId}",post.getId())
                         .contentType(MediaType.APPLICATION_JSON))

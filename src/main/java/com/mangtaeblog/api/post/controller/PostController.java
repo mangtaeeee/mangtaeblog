@@ -29,7 +29,8 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public ResponseEntity findOne(@PathVariable Long postId) {
+    public ResponseEntity<PostResponse> findOne(@PathVariable Long postId) {
+        postService.updateView(postId);
         return ResponseEntity.ok(postService.findOne(postId));
     }
 
@@ -38,7 +39,7 @@ public class PostController {
         return postService.findAll(postSearch);
     }
 
-    @PatchMapping("/posts/{postId}")
+    @PatchMapping("/posts/edit/{postId}")
     public ResponseEntity edit(@PathVariable Long postId, @RequestBody @Valid PostEdit postEdit){
         postService.edit(postId,postEdit);
         return ResponseEntity.ok(postId);
@@ -49,6 +50,7 @@ public class PostController {
         postService.delete(postId);
         return ResponseEntity.ok(postId);
     }
+
 
 
 

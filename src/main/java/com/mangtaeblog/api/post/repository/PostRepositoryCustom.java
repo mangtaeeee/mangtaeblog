@@ -9,4 +9,5 @@ public interface PostRepositoryCustom {
 
     List<Post> getList(PostSearch postSearch);
 
+
 }

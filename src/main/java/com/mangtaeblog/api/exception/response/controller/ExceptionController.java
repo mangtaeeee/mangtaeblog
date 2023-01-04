@@ -1,4 +1,4 @@
-package com.mangtaeblog.api.exception.controller;
+package com.mangtaeblog.api.exception.response.controller;
 
 import com.mangtaeblog.api.exception.MangtaeBlogException;
 import com.mangtaeblog.api.post.domain.PostNotFound;

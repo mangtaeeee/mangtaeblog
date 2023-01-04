@@ -65,7 +65,6 @@ class PostServiceTest {
         PostCreate postCreate = PostCreate.builder()
                 .title("제목입니다.")
                 .content("내용입니다.")
-                .writer("작성자입니다.")
                 .memberId(member.getId())
                 .build();
 

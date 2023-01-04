@@ -10,6 +10,7 @@ import com.mangtaeblog.api.member.domain.Role;
 import com.mangtaeblog.api.member.repository.MemberRepository;
 import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.post.repository.PostRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,13 @@ class CommentControllerTest {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    @BeforeEach
+    void clean(){
+        memberRepository.deleteAll();
+        commentRepository.deleteAll();
+        postRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("/posts/{postId}/comments 요청 시  저장한다")
@@ -74,7 +82,7 @@ class CommentControllerTest {
         String json = objectMapper.writeValueAsString(commentCreate);
 
         //then
-        mockMvc.perform(post("/post/{postId}/comments",post.getId())
+        mockMvc.perform(post("/posts/{postId}/comments",post.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -82,7 +90,7 @@ class CommentControllerTest {
     }
 
     @Test
-    @DisplayName("/post/{postId}/comments 요청 시  조회한다")
+    @DisplayName("/posts/{postId}/comments 요청 시  조회한다")
     void 조회() throws Exception {
 
         //given
@@ -113,14 +121,14 @@ class CommentControllerTest {
         commentRepository.save(comment);
 
         //then
-        mockMvc.perform(get("/post/{postId}/comments",post.getId())
+        mockMvc.perform(get("/posts/{postId}/comments",post.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    @DisplayName("/post/{postId}/comments/{commentId} 요청 시 수정한다")
+    @DisplayName("/posts/{postId}/comments/{commentId} 요청 시 수정한다")
     void 수정() throws Exception {
 
         //given
@@ -156,7 +164,7 @@ class CommentControllerTest {
                 .build();
 
         //then
-        mockMvc.perform(patch("/post/{postId}/comments/{commentId}",post.getId(),comment.getId())
+        mockMvc.perform(patch("/posts/{postId}/comments/{commentId}",post.getId(),comment.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(commentEdit)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
