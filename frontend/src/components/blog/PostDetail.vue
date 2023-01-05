@@ -5,8 +5,8 @@
                   <tr>
                       <th>제목</th>
                       <th>내용</th>
-                      <th>작성일시 </th>
-                      <th>조회수 </th>
+                      <th>작성일시</th>
+                      <th>조회수</th>
                   </tr>
               </thead>
               <tbody>
@@ -22,7 +22,7 @@
               <h1>댓글</h1>
               <tfoot>
                 <tr>
-                    <td>내용:<input type="text" v-model="CommentCreate.content" /></td>
+                    <td>내용:<textarea rows="4" v-model="CommentCreate.content" placeholder="댓글을 입력해 주세요"/></td>
                     <td>작성자:<input type="text" v-model="CommentCreate.memberId"/></td>
                     <button @click="CommentWrite">작성</button>
                 </tr>
@@ -61,7 +61,8 @@ export default {
                     this.postsList = response;
                     this.comment = response.comments;
                 }).catch(error => {
-                    console.log(error.response.data.validation.content);
+                    alert(error.response.data.message);
+                    this.$router.go(-1);
                 });
         },
 
@@ -89,7 +90,8 @@ export default {
                     this.$router.go(0);
                 })
                 .catch((error => {
-                    alert(error.response.data.validation.content);
+                    console.log(error);
+                    alert(error.response.data.message);
                 }));
         },
     

@@ -39,7 +39,7 @@ public class PostController {
         return postService.findAll(postSearch);
     }
 
-    @PatchMapping("/posts/edit/{postId}")
+    @PatchMapping("/posts/{postId}")
     public ResponseEntity edit(@PathVariable Long postId, @RequestBody @Valid PostEdit postEdit){
         postService.edit(postId,postEdit);
         return ResponseEntity.ok(postId);

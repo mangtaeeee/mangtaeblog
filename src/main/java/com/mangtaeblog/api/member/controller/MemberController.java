@@ -1,8 +1,11 @@
 package com.mangtaeblog.api.member.controller;
 
+import com.mangtaeblog.api.member.request.UserLogin;
+import com.mangtaeblog.api.member.request.UserSession;
 import com.mangtaeblog.api.member.request.MemberCreate;
 import com.mangtaeblog.api.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +13,26 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
+
+    @GetMapping("/foo")
+    public Long foo(UserSession userSession) {
+        log.info("{}", userSession.id);
+        return userSession.id;
+    }
+
+    @PostMapping("/member/login")
+    public void login(@RequestBody UserLogin userLogin){
+        // json에서 아이디 비번 받아서
+        log.info(">>>login={}", userLogin);
+        // DB에서 조회
+        // 토큰을 응답
+
+
+    }
 
     @PostMapping("/member/join")
     public ResponseEntity join(@RequestBody @Valid MemberCreate member){

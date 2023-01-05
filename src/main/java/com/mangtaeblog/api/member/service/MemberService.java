@@ -17,7 +17,6 @@ public class MemberService {
 
     public Member join(MemberCreate request) {
 
-
         Member member = Member.builder()
                 .userId(request.getUserId())
                 .username(request.getUsername())
@@ -32,12 +31,12 @@ public class MemberService {
     public MemberResponse findOne(Long id){
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new MemberNotFound());
+
         return MemberResponse.builder()
                 .id(member.getId())
                 .username(member.getUsername())
                 .userId(member.getUserId())
                 .email(member.getEmail())
-                .password(member.getPassword())
                 .createDate(member.getCreateDate())
                 .updateDate(member.getUpdateDate())
                 .role(member.getRole())
