@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.member.repository.MemberRepository;
 import com.mangtaeblog.api.member.request.MemberCreate;
+import com.mangtaeblog.api.member.request.UserLogin;
 import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.post.repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
@@ -100,4 +101,34 @@ class MemberControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("홍길동"))
                 .andDo(MockMvcResultHandlers.print());
     }
+
+    @Test
+    @DisplayName("로그인 확인 테스트")
+    void 로그인() throws Exception {
+        //given
+        Member member = Member.builder()
+                .userId("asd9658")
+                .username("홍길동")
+                .email("asd9658@naver.com")
+                .password("1234")
+                .build();
+
+        memberRepository.save(member);
+
+        UserLogin userLogin = UserLogin.builder()
+                .userId("asd9658")
+                .password("1234")
+                .build();
+
+        String json = objectMapper.writeValueAsString(userLogin);
+
+        //excepted
+        mockMvc.perform(post("/member/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
 }

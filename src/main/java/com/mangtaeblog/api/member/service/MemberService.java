@@ -1,10 +1,12 @@
 package com.mangtaeblog.api.member.service;
 
+import com.mangtaeblog.api.member.domain.MemberInvalidSignInformation;
 import com.mangtaeblog.api.member.domain.MemberNotFound;
 import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.member.domain.Role;
 import com.mangtaeblog.api.member.repository.MemberRepository;
 import com.mangtaeblog.api.member.request.MemberCreate;
+import com.mangtaeblog.api.member.request.UserLogin;
 import com.mangtaeblog.api.member.response.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,11 @@ public class MemberService {
                 .build();
 
         return memberRepository.save(member);
+    }
+
+    public void singin(UserLogin userLogin) {
+        Member user = memberRepository.findByUserIdAndPassword(userLogin.getUserId(), userLogin.getPassword())
+                .orElseThrow(() -> new MemberInvalidSignInformation());
     }
 
     public MemberResponse findOne(Long id){

@@ -1,8 +1,8 @@
 package com.mangtaeblog.api.member.controller;
 
+import com.mangtaeblog.api.member.request.MemberCreate;
 import com.mangtaeblog.api.member.request.UserLogin;
 import com.mangtaeblog.api.member.request.UserSession;
-import com.mangtaeblog.api.member.request.MemberCreate;
 import com.mangtaeblog.api.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +29,8 @@ public class MemberController {
         // json에서 아이디 비번 받아서
         log.info(">>>login={}", userLogin);
         // DB에서 조회
+        memberService.singin(userLogin);
         // 토큰을 응답
-
 
     }
 
