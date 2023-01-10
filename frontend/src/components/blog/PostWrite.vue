@@ -27,16 +27,16 @@ export default {
     },
     methods: {
         write(){
-            customAxios.post("api/posts",{
+            customAxios.post("api/posts/post",{
                 title : this.PostCreate.title,
                 content : this.PostCreate.content,
                 memberId : this.PostCreate.memberId
             })
                 .then(() => {
-                    this.$router.push( {name : "home"}); 
+                    this.$router.push( {name : "MainPage"});
                 })
                 .catch(error => {
-                    alert(error.response.data.validation.content);
+                    alert(error.response.data.message);
                     
                 });
         }

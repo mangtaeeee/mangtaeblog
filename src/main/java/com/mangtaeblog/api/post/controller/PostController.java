@@ -21,7 +21,7 @@ public class PostController {
     private final PostService postService;
 
 
-    @PostMapping("/posts")
+    @PostMapping("/posts/post")
     public ResponseEntity post(@RequestBody @Valid PostCreate postCreate) {
         postCreate.validate();
         postService.write(postCreate);
@@ -34,18 +34,18 @@ public class PostController {
         return ResponseEntity.ok(postService.findOne(postId));
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/posts/list")
     public List<PostResponse> postList(@ModelAttribute PostSearch postSearch) {
         return postService.findAll(postSearch);
     }
 
-    @PatchMapping("/posts/{postId}")
+    @PatchMapping("/posts/edit/{postId}")
     public ResponseEntity edit(@PathVariable Long postId, @RequestBody @Valid PostEdit postEdit){
         postService.edit(postId,postEdit);
         return ResponseEntity.ok(postId);
     }
 
-    @DeleteMapping("/posts/{postId}")
+    @DeleteMapping("/posts/delete/{postId}")
     public ResponseEntity delete(@PathVariable Long postId) {
         postService.delete(postId);
         return ResponseEntity.ok(postId);

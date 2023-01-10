@@ -38,7 +38,7 @@ export default {
         },
         PostEdit() {
             const postId = this.$route.params.postId;
-            customAxios.patch("api/posts/"+postId, {
+            customAxios.patch("api/posts/edit/"+postId, {
                 title : this.postsList.title,
                 content : this.postsList.content
             }).then(() => {

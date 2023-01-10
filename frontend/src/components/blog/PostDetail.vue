@@ -68,10 +68,10 @@ export default {
 
         DeletePost() {
             const postId = this.$route.params.postId;
-            customAxios.delete("api/posts/"+postId)
+            customAxios.delete("api/posts/delete/"+postId)
                 .then(() => {
                     alert("글이 삭제되었습니다.");
-                    this.$router.push( {name : "home"}); 
+                    this.$router.push( {name : "MainPage"});
                 });
          
         },

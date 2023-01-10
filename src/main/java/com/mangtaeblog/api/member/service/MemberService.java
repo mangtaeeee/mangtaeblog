@@ -30,9 +30,18 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public void singin(UserLogin userLogin) {
-        Member user = memberRepository.findByUserIdAndPassword(userLogin.getUserId(), userLogin.getPassword())
+    public MemberResponse singin(UserLogin userLogin) {
+
+        Member member = memberRepository.findByUserIdAndPassword(userLogin.getUserId(), userLogin.getPassword())
                 .orElseThrow(() -> new MemberInvalidSignInformation());
+
+        return MemberResponse.builder()
+                .id(member.getId())
+                .username(member.getUsername())
+                .userId(member.getUserId())
+                .email(member.getEmail())
+                .role(member.getRole())
+                .build();
     }
 
     public MemberResponse findOne(Long id){
