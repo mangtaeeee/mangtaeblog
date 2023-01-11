@@ -15,6 +15,9 @@
     <button>
       <router-link :to="{name:'Write'}">글쓰기</router-link>
     </button>
+    <button>
+      <router-link :to="{name:'Login'}">로그인</router-link>
+    </button>
 
   </div>
 </template>
