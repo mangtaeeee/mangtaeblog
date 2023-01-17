@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -119,9 +120,9 @@ class PostControllerTest {
 
         String json = objectMapper.writeValueAsString(postCreate);
 
-        mockMvc.perform(post("/posts/post")
+        mockMvc.perform(post("/api/posts/post")
                         .contentType(MediaType.APPLICATION_JSON)
-//                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
 //                        .with(SecurityMockMvcRequestPostProcessors.user("mockUsername").roles("ADMIN"))
                         .content(json))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -197,7 +198,7 @@ class PostControllerTest {
 
         postRepository.saveAll(requestPosts);
 
-        mockMvc.perform(get("/posts/list?page=1&size=10")
+        mockMvc.perform(get("/api/posts/list?page=1&size=10")
 //                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()", Matchers.is(10)))

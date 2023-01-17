@@ -6,17 +6,16 @@ import com.mangtaeblog.api.post.request.PostSearch;
 import com.mangtaeblog.api.post.response.PostResponse;
 import com.mangtaeblog.api.post.service.PostService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@Slf4j
 @RestController
+@RequestMapping("/api")
 @RequiredArgsConstructor
-public class PostController {
+public class PostApiController {
 
     private final PostService postService;
 

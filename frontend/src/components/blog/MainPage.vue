@@ -35,7 +35,7 @@ export default {
         };
     },
     mounted() {
-        customAxios.get("api/posts/list?page=1&size=5")
+        customAxios.get("api/api/posts/list?page=1&size=5")
             .then(response => {
                 this.posts = response;
             })

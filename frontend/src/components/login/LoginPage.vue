@@ -20,7 +20,7 @@
     </div>
     <button class="w-100 btn btn-lg btn-primary" @click="submit()">Sign in</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
-    <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
+    <router-link to="/login" v-if="!$store.state.user">로그인</router-link>
     <a to="/login" @click="logout()" v-else>로그아웃</a>
   </div>
 </template>
@@ -41,14 +41,14 @@ export default {
         });
 
         const logout = () => {//eslint-disable-line no-unused-vars
-            store.commit("setAccount", 0);
+            store.commit("clearUser");
             router.push({path: "/"});
         };
 
         const submit = () => {
-            axios.post("/api/member/login", state.form)
+            axios.post("/api/api/member/login", state.form)
                 .then((res => {
-                    store.commit("setAccount", res.data);
+                    store.commit("setUser", res.data);
                     window.alert("로그인 하였습니다.");
                 }));
         };

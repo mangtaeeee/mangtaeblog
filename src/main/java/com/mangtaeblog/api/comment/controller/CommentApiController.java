@@ -5,7 +5,6 @@ import com.mangtaeblog.api.comment.request.CommentEdit;
 import com.mangtaeblog.api.comment.response.CommentResponse;
 import com.mangtaeblog.api.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
-public class CommentController {
+@RequestMapping("/api")
+public class CommentApiController {
 
     private final CommentService commentService;
 

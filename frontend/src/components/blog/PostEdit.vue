@@ -31,7 +31,7 @@ export default {
     methods: {
         read() {
             const postId = this.$route.params.postId;
-            customAxios.get("api/posts/" + postId)
+            customAxios.get("api/api/posts/" + postId)
                 .then(response => {
                     this.postsList = response;
                 }).catch(error => {
@@ -40,7 +40,7 @@ export default {
         },
         PostEdit() {
             const postId = this.$route.params.postId;
-            customAxios.patch("api/posts/edit/" + postId, {
+            customAxios.patch("api/api/posts/edit/" + postId, {
                 title: this.postsList.title,
                 content: this.postsList.content
             }).then(() => {

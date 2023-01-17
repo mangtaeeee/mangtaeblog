@@ -56,7 +56,7 @@ export default {
     methods: {
         read() {
             const postId = this.$route.params.postId;
-            customAxios.get("api/posts/"+postId)
+            customAxios.get("api/api/posts/"+postId)
                 .then(response => {
                     this.postsList = response;
                     this.comment = response.comments;
@@ -68,7 +68,7 @@ export default {
 
         DeletePost() {
             const postId = this.$route.params.postId;
-            customAxios.delete("api/posts/delete/"+postId)
+            customAxios.delete("api/api/posts/delete/"+postId)
                 .then(() => {
                     alert("글이 삭제되었습니다.");
                     this.$router.push( {name : "MainPage"});
@@ -82,7 +82,7 @@ export default {
 
         CommentWrite(){
             const postId = this.$route.params.postId;
-            customAxios.post("api/posts/"+postId+"/comments",{
+            customAxios.post("api/api/posts/"+postId+"/comments",{
                 content : this.CommentCreate.content,
                 memberId : this.CommentCreate.memberId
             })
@@ -97,7 +97,7 @@ export default {
     
         DeleteComment(commentId) {
             const postId = this.$route.params.postId;
-            customAxios.delete("api/posts/"+postId+"/comments/"+ commentId)
+            customAxios.delete("api/api/posts/"+postId+"/comments/"+ commentId)
                 .then(() => {
                     alert("댓글이 삭제되었습니다.");
                     this.$router.go(0);

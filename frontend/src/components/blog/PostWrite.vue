@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         write(){
-            customAxios.post("api/posts/post",{
+            customAxios.post("api/api/posts/post",{
                 title : this.PostCreate.title,
                 content : this.PostCreate.content,
                 memberId : this.PostCreate.memberId

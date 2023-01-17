@@ -4,7 +4,6 @@ import com.mangtaeblog.api.member.request.MemberCreate;
 import com.mangtaeblog.api.member.request.UserLogin;
 import com.mangtaeblog.api.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,8 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@Slf4j
-public class MemberController {
+@RequestMapping("/api")
+public class MemberApiController {
 
     private final MemberService memberService;
 
