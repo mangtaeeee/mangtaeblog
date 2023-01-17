@@ -16,12 +16,10 @@ public class PostSearch {
     @Builder.Default
     private Integer size = 10;
 
+
+
     public long getOffset(){
         return (long) (Math.max(1,page)- 1) * Math.min(size, MAX_SIZE);
     }
 
-//    public PostSearch(Integer page, Integer size) {
-//        this.page = page;
-//        this.size = size;
-//    }
 }

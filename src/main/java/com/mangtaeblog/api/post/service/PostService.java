@@ -10,9 +10,11 @@ import com.mangtaeblog.api.post.domain.PostNotFound;
 import com.mangtaeblog.api.post.repository.PostRepository;
 import com.mangtaeblog.api.post.request.PostCreate;
 import com.mangtaeblog.api.post.request.PostEdit;
-import com.mangtaeblog.api.post.request.PostSearch;
 import com.mangtaeblog.api.post.response.PostResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,8 +71,9 @@ public class PostService {
      * @param : READ 글 전체 조회
      */
     @Transactional(readOnly = true)
-    public List<PostResponse> findAll(PostSearch postSearch) {
-        List<PostResponse> collect = postRepository.getList(postSearch).stream()
+    public Page<PostResponse> findAll(Pageable pageable) {
+
+        List<PostResponse> collect = postRepository.findAll(pageable).stream()
                 .map(post -> PostResponse.builder()
                         .id(post.getId())
                         .title(post.getTitle())
@@ -82,7 +85,8 @@ public class PostService {
                         .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
-        return collect;
+
+        return new PageImpl<>(collect);
     }
 
     @Transactional
@@ -106,6 +110,8 @@ public class PostService {
 
         postRepository.delete(post);
     }
+
+
 
     @Transactional
     public int updateView(Long id) {

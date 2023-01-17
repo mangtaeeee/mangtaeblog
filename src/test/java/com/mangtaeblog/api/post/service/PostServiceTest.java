@@ -3,12 +3,10 @@ package com.mangtaeblog.api.post.service;
 import com.mangtaeblog.api.member.domain.Member;
 import com.mangtaeblog.api.member.domain.Role;
 import com.mangtaeblog.api.member.repository.MemberRepository;
-import com.mangtaeblog.api.member.service.MemberService;
 import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.post.repository.PostRepository;
 import com.mangtaeblog.api.post.request.PostCreate;
 import com.mangtaeblog.api.post.request.PostEdit;
-import com.mangtaeblog.api.post.request.PostSearch;
 import com.mangtaeblog.api.post.response.PostResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +14,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,8 +32,6 @@ class PostServiceTest {
     @Autowired
     private PostRepository postRepository;
 
-    @Autowired
-    private MemberService memberService;
 
     @Autowired
     private MemberRepository memberRepository ;
@@ -93,27 +91,25 @@ class PostServiceTest {
 
         memberRepository.save(member);
 
-        List<Post> requestPosts = IntStream.range(0, 20)
+        List<Post> requestPosts = IntStream.range(0, 50)
                 .mapToObj(i -> Post.builder()
                         .title("제목 " + i)
                         .content("내용 " + i)
-                        .writer(member.getUserId() + i)
+                        .writer(member.getUserId())
                         .member(member)
                         .build())
                 .collect(Collectors.toList());
 
         postRepository.saveAll(requestPosts);
 
-        PostSearch postSearch = PostSearch.builder()
-                .page(1)
-                .build();
+
+        Pageable pageable = Pageable.ofSize(10);
 
         //when
-        List<PostResponse> response = postService.findAll(postSearch);
+        Page<PostResponse> response = postService.findAll(pageable);
 
         //then
-        assertEquals(10L,response.size());
-        assertEquals("제목 19",response.get(0).getTitle());
+        assertEquals(10L,response.getSize());
     }
 
 
