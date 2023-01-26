@@ -11,7 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,25 +22,21 @@ public class PostViewController {
 
 
     @GetMapping("/")
-    public String index(Model model,@PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-    Pageable pageable) {
-
-        Page<PostResponse> list = postService.findAll(pageable);
-
-
+    public String index(Model model,@PageableDefault(page = 0,sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<PostResponse> list = postService.findAllPaging(pageable);
         model.addAttribute("list", list);
 
         return "/blog/MainPage";
     }
+    @GetMapping("/detail/{postId}")
+    public String read(Model model, @PathVariable Long postId) {
+        PostResponse response = postService.findOne(postId);
+        postService.updateView(postId);
 
-    @RequestMapping("/hello")
-    public String hello(Model model) {
-        model.addAttribute("data", "하위");
-        return "hello";
+        model.addAttribute("detail",response);
+        return "/blog/BlogDetail";
     }
 
-    @GetMapping("/auth/login")
-    public String login() {
-        return "/login/Login";
-    }
+
+
 }

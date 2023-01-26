@@ -14,8 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -91,7 +89,7 @@ class PostServiceTest {
 
         memberRepository.save(member);
 
-        List<Post> requestPosts = IntStream.range(0, 50)
+        List<Post> requestPosts = IntStream.range(0, 100)
                 .mapToObj(i -> Post.builder()
                         .title("제목 " + i)
                         .content("내용 " + i)
@@ -103,13 +101,12 @@ class PostServiceTest {
         postRepository.saveAll(requestPosts);
 
 
-        Pageable pageable = Pageable.ofSize(10);
 
         //when
-        Page<PostResponse> response = postService.findAll(pageable);
+        List<PostResponse> response = postService.findAll();
 
         //then
-        assertEquals(10L,response.getSize());
+        assertEquals(100L,response.size());
     }
 
 

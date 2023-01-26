@@ -12,12 +12,11 @@ import com.mangtaeblog.api.post.request.PostCreate;
 import com.mangtaeblog.api.post.request.PostEdit;
 import com.mangtaeblog.api.post.response.PostResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,9 +70,8 @@ public class PostService {
      * @param : READ 글 전체 조회
      */
     @Transactional(readOnly = true)
-    public Page<PostResponse> findAll(Pageable pageable) {
-
-        List<PostResponse> collect = postRepository.findAll(pageable).stream()
+    public List<PostResponse> findAll() {
+        List<PostResponse> collect = postRepository.findAll().stream()
                 .map(post -> PostResponse.builder()
                         .id(post.getId())
                         .title(post.getTitle())
@@ -86,8 +84,36 @@ public class PostService {
                         .build())
                 .collect(Collectors.toList());
 
-        return new PageImpl<>(collect);
+
+        return collect;
     }
+
+
+    @Transactional(readOnly = true)
+    public Page<PostResponse> findAllPaging(Pageable pageable) {
+
+        int page = pageable.getPageNumber() - 1;
+
+        Page<Post> postList = postRepository.findAll(pageable);
+        List<PostResponse> postResponseList = new ArrayList<>();
+
+        for(Post post : postList) {
+            PostResponse postResponse = PostResponse.builder()
+                    .id(post.getId())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .writer(post.getWriter())
+                    .view(post.getView())
+                    .updateDate(post.getUpdateDate())
+                    .createDate(post.getCreateDate())
+                    .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
+                    .build();
+            postResponseList.add(postResponse);
+        }
+
+        return new PageImpl<>(postResponseList, pageable, postList.getTotalElements());
+    }
+
 
     @Transactional
     public void edit(Long id, PostEdit postEdit){

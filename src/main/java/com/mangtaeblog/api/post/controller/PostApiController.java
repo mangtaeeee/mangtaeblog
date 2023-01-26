@@ -37,7 +37,7 @@ public class PostApiController {
 
     @GetMapping("/posts/list")
     public Page<PostResponse> postList(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return postService.findAll(pageable);
+        return postService.findAllPaging(pageable);
     }
 
     @PatchMapping("/posts/edit/{postId}")
