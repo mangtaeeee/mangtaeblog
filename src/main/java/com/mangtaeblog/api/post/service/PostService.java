@@ -59,8 +59,8 @@ public class PostService {
                 .content(post.getContent())
                 .writer(post.getWriter())
                 .view(post.getView())
-                .createDate(post.getCreateDate())
-                .updateDate(post.getUpdateDate())
+                .createDate(post.getCreatedDate())
+                .updateDate(post.getModifiedDate())
                 .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
                 .build();
     }
@@ -78,8 +78,8 @@ public class PostService {
                         .content(post.getContent())
                         .writer(post.getWriter())
                         .view(post.getView())
-                        .updateDate(post.getUpdateDate())
-                        .createDate(post.getCreateDate())
+                        .updateDate(post.getModifiedDate())
+                        .createDate(post.getCreatedDate())
                         .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
@@ -92,8 +92,6 @@ public class PostService {
     @Transactional(readOnly = true)
     public Page<PostResponse> findAllPaging(Pageable pageable) {
 
-        int page = pageable.getPageNumber() - 1;
-
         Page<Post> postList = postRepository.findAll(pageable);
         List<PostResponse> postResponseList = new ArrayList<>();
 
@@ -104,8 +102,8 @@ public class PostService {
                     .content(post.getContent())
                     .writer(post.getWriter())
                     .view(post.getView())
-                    .updateDate(post.getUpdateDate())
-                    .createDate(post.getCreateDate())
+                    .updateDate(post.getModifiedDate())
+                    .createDate(post.getCreatedDate())
                     .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
                     .build();
             postResponseList.add(postResponse);

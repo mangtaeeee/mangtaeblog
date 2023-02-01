@@ -3,7 +3,6 @@ package com.mangtaeblog.api.post.controller;
 import com.mangtaeblog.api.post.response.PostResponse;
 import com.mangtaeblog.api.post.service.PostService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,14 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequiredArgsConstructor
-@Slf4j
 public class PostViewController {
 
     private final PostService postService;
 
 
     @GetMapping("/")
-    public String index(Model model,@PageableDefault(page = 0,sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String index(Model model,@PageableDefault(page = 0,size = 5,sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<PostResponse> list = postService.findAllPaging(pageable);
         model.addAttribute("list", list);
 
@@ -36,7 +34,18 @@ public class PostViewController {
         model.addAttribute("detail",response);
         return "/blog/BlogDetail";
     }
+    @GetMapping("/edit/{postId}")
+    public String edit(Model model, @PathVariable Long postId) {
+        PostResponse response = postService.findOne(postId);
 
+        model.addAttribute("editData",response);
+        return "/blog/PostEdit";
+    }
+
+    @GetMapping("/write")
+    public String write() {
+        return "/blog/PostWrite";
+    }
 
 
 }

@@ -6,22 +6,32 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 @Getter
 public abstract class BasicTimeEntity {
 
+    @Column(name = "created_date")
     @CreatedDate
-    @Column(name = "create_date",updatable = false) //등록시 한번만 작성 되면 되기에 false로 두었음
-    private LocalDateTime createDate;
+    private String createdDate;
 
+    @Column(name = "modified_date")
     @LastModifiedDate
-    @Column(name = "update_date")
-    private LocalDateTime updateDate;
+    private String modifiedDate;
+
+    @PrePersist
+    public void onPrePersist(){
+        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm"));
+        this.modifiedDate = this.createdDate;
+    }
+
+    @PreUpdate
+    public void onPreUpdate(){
+        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm"));
+    }
 
 }

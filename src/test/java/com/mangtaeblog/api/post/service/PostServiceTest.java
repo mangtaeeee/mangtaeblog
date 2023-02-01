@@ -89,7 +89,7 @@ class PostServiceTest {
 
         memberRepository.save(member);
 
-        List<Post> requestPosts = IntStream.range(0, 100)
+        List<Post> requestPosts = IntStream.range(0, 30)
                 .mapToObj(i -> Post.builder()
                         .title("제목 " + i)
                         .content("내용 " + i)
@@ -106,7 +106,7 @@ class PostServiceTest {
         List<PostResponse> response = postService.findAll();
 
         //then
-        assertEquals(100L,response.size());
+        assertEquals(30L,response.size());
     }
 
 
@@ -150,7 +150,7 @@ class PostServiceTest {
         Assertions.assertEquals("수정했습니다.",changepost.getTitle() );
         Assertions.assertEquals("내용입니다.",changepost.getContent());
         Assertions.assertEquals("작성자입니다.",changepost.getWriter());
-        Assertions.assertNotEquals(changepost.getCreateDate(),changepost.getUpdateDate());
+        Assertions.assertNotEquals(changepost.getCreatedDate(),changepost.getModifiedDate());
     }
 
     @Test

@@ -4,8 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @RequiredArgsConstructor
 @Builder
@@ -16,6 +14,6 @@ public class MemberResponse {
     private final String userId;
     private final String email;
     private final Enum role;
-    private final LocalDateTime createDate;
-    private final LocalDateTime updateDate;
+    private final String createDate;
+    private final String updateDate;
 }

@@ -53,8 +53,8 @@ public class MemberService {
                 .username(member.getUsername())
                 .userId(member.getUserId())
                 .email(member.getEmail())
-                .createDate(member.getCreateDate())
-                .updateDate(member.getUpdateDate())
+                .createDate(member.getCreatedDate())
+                .updateDate(member.getModifiedDate())
                 .role(member.getRole())
                 .build();
     }

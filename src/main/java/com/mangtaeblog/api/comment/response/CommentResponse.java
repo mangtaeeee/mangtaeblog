@@ -1,11 +1,9 @@
 package com.mangtaeblog.api.comment.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mangtaeblog.api.comment.domain.Comment;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +15,9 @@ public class CommentResponse {
     private String userId;
     private Long postId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime createDate;
+    private String createDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime updateDate;
+    private String updateDate;
 
     private List<CommentResponse> comments = new ArrayList<>();
 
@@ -31,8 +27,8 @@ public class CommentResponse {
         this.content = comment.getContent();
         this.userId = comment.getMember().getUserId();;
         this.postId = comment.getPost().getId();
-        this.createDate = comment.getCreateDate();
-        this.updateDate = comment.getUpdateDate();
+        this.createDate = comment.getCreatedDate();
+        this.updateDate = comment.getModifiedDate();
 
     }
 }
