@@ -36,6 +36,7 @@
             <div th:each="post : ${list}">
                 <div id="head"><h2>
                     <a id="postTitle" th:href="@{|/detail/${post.id}|}" th:text="${post.title}"></a>
+                    <input type="hidden" id="id" th:value="${post.id}">
                 </h2>
                     <div th:text="${post.createDate}" class="date"></div>
                 </div>
@@ -47,28 +48,28 @@
                         </div>
                     </div>
                     <div class="admin">
-                        <a>Modify</a>
+                        <a th:href="@{|/edit/${post.id}|}">Modify</a>
                         <span class="line"></span>
-                        <a>Delete</a>
+                        <a id="btn-delete" >Delete</a>
                     </div>
                     <div id="entry2Comment" class="entry2Comment">
                         <div id="communicate">
-                            <form th:id="'commentForm' + ${postStat.index}" name="commentForm" class="commentForm">
-                                <input type="hidden" class="postId" th:id="'postId' + ${postStat.index}" th:value="${post.id}">
-                                <div class="communicateWrite">
-                                    <div class="name quest">
-                                        <label>USERID</label>
-                                        <input class="memberId" th:id="'memberId' + ${postStat.index}" type="text" name="memberId">
-                                    </div>
-                                    <div class="textarea">
-                                        <textarea class="commentContent" th:id="'commentContent' + ${postStat.index}" rows="10" clas="50"></textarea>
-                                    </div>
-                                    <div class="submit">
-                                        <input type="button" class="btn-comment-save" value="WRITE" >
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                            </form>
+<!--                            <form th:id="'commentForm' + ${postStat.index}" name="commentForm" class="commentForm">-->
+<!--                                <input type="hidden" class="postId" th:id="'postId' + ${postStat.index}" th:value="${post.id}">-->
+<!--                                <div class="communicateWrite">-->
+<!--                                    <div class="name quest">-->
+<!--                                        <label>USERID</label>-->
+<!--                                        <input class="memberId" th:id="'memberId' + ${postStat.index}" type="text" name="memberId">-->
+<!--                                    </div>-->
+<!--                                    <div class="textarea">-->
+<!--                                        <textarea class="commentContent" th:id="'commentContent' + ${postStat.index}" rows="10" clas="50"></textarea>-->
+<!--                                    </div>-->
+<!--                                    <div class="submit">-->
+<!--                                        <input type="button" class="btn-comment-save" value="WRITE" >-->
+<!--                                    </div>-->
+<!--                                    <div class="clear"></div>-->
+<!--                                </div>-->
+<!--                            </form>-->
                             <div class="communicateList">
                                 <ol th:each="comment : ${post.comments}">
                                     <li id="comment13330521">
@@ -97,13 +98,13 @@
         <!-- 페이징처리 시작 -->
         <div id="paging" th:if="${!list.isEmpty()}"><!--paging.isEmpty:페이지존재여부(게시물있으면 false,없으면 true)-->
             <ul class="pagination justify-content-center">
-                <li class="page-item" th:classappend="${!list.hasPrevious} ? 'disabled'">
+                <div class="page-item" th:classappend="${!list.hasPrevious} ? 'disabled'">
                     <!-- !paging.hasPrevious - disabled : 이전페이지가 없으면 비활성화-->
                     <a id="prev no-more-prev" class="page-link" th:href="@{|?page=${list.number - 1}|}">
                         <!--이전페이지 링크-->
                         <span>이전</span>
                     </a>
-                </li>
+                </div>
                 <!--th:each :페이지 리스트 루프--> <!--#numbers.sequence(시작, 끝)-->
                 <li th:each="page: ${#numbers.sequence(0, list.totalPages - 1)}"
                     th:classappend="${page == list.number} ? 'active'"
@@ -139,43 +140,73 @@
     const main = {
         init: function () {
             const _this = this;
-            // 댓글 저장
-            $('.btn-comment-save').click(function () {
-                _this.commentSave();
+
+            // 게시글 삭제
+            $('#btn-delete').click(function () {
+                _this.delete();
             });
+
+            //
+            // // 댓글 저장
+            // $('.btn-comment-save').click(function () {
+            //     _this.commentSave();
+            // });
 
         },
 
+        /** 글 삭제 */
+        delete : function () {
+            const id = $('#id').val();
+            const con_check = confirm("정말 삭제하시겠습니까?");
 
-        /** 댓글 저장 */
-        commentSave : function () {
-            const postId = $("input.postId").closest("input").val();
-            alert(postId)
-            const data = {
-                memberId: $(".memberId").closest("input"),
-                content: $(".commentContent").closest("textarea")
-            }
-
-
-            // 공백 및 빈 문자열 체크
-            if (!data.content || data.content.trim() === "") {
-                alert("공백 또는 입력하지 않은 부분이 있습니다.");
-                return false;
-            } else {
+            if(con_check == true) {
                 $.ajax({
-                    type: 'POST',
-                    url: '/api/posts/' + postId + '/comments',
+                    type: 'DELETE',
+                    url: '/api/posts/delete/'+id,
                     dataType: 'JSON',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data)
+                    contentType: 'application/json; charset=utf-8'
+
                 }).done(function () {
-                    alert('댓글이 등록되었습니다.');
-                    window.location.reload();
+                    alert("삭제되었습니다.");
+                    window.location.href = '/';
                 }).fail(function (error) {
                     alert(JSON.stringify(error));
                 });
+            } else {
+                return false;
             }
         },
+
+
+        // /** 댓글 저장 */
+        // commentSave : function () {
+        //     const postId = $("input.postId").closest("input").val();
+        //     alert(postId)
+        //     const data = {
+        //         memberId: $(".memberId").closest("input"),
+        //         content: $(".commentContent").closest("textarea")
+        //     }
+        //
+        //
+        //     // 공백 및 빈 문자열 체크
+        //     if (!data.content || data.content.trim() === "") {
+        //         alert("공백 또는 입력하지 않은 부분이 있습니다.");
+        //         return false;
+        //     } else {
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: '/api/posts/' + postId + '/comments',
+        //             dataType: 'JSON',
+        //             contentType: 'application/json; charset=utf-8',
+        //             data: JSON.stringify(data)
+        //         }).done(function () {
+        //             alert('댓글이 등록되었습니다.');
+        //             window.location.reload();
+        //         }).fail(function (error) {
+        //             alert(JSON.stringify(error));
+        //         });
+        //     }
+        // },
     }
     main.init();
 

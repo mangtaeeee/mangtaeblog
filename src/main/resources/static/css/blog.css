@@ -31,7 +31,6 @@ input, textarea { outline: none; }
 ::selection { background: #888; color: #fff; }
 
 div, span, input, textarea { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; }
-#tistoryProfileLayer div { -webkit-box-sizing: content-box; -moz-box-sizing: content-box; -ms-box-sizing: content-box; -o-box-sizing: content-box; box-sizing: content-box; }
 
 a, input, textarea, li {
     -webkit-transition: all 0.3s;
@@ -239,8 +238,18 @@ a, input, textarea, li {
 #communicate .communicateList p { margin: 10px 0; padding: 0; line-height: 180%; }
 #communicate .communicateList .control { width: 100%; text-align: right; font-style: italic; font-size: 13px; line-height: 100%; }
 #communicate .communicateList .control a { margin: 0 0 0 5px; color: #555; display: inline-block; padding: 10px 5px; }
-#communicate .communicateList .tistoryProfileLayerTrigger { margin-bottom: -1px; }
 #communicate .communicateList .tt_more_preview_comments_wrap { text-align: center; cursor: pointer;  padding: 17px 0 15px; font-weight: 400; color: #333; }
+.content {
+    padding: 0 0 20px;
+    font-size: 16px;
+}
+.content a {
+    color: #0070d1;
+}
+
+.content p + p {
+    margin: 1px auto 0;
+}
 
 /*
  * paging
