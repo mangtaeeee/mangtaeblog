@@ -24,21 +24,26 @@
             <div id="content-inner">
                 <div id="head">
                     <h2 th:text="${detail.title}"></h2>
-                    <div class="date" th:text="${detail.createDate}"></div>
+                    <div class="date" th:text="${detail.createDate}">
+
+                    </div>
                 </div>
 
                 <div id="body" class="entry">
                     <div class="tag_label"></div>
                     <div class="tt_article_useless_p_margin contents_style">
+
                         <div class="article">
                             <p th:text="${detail.content}"></p>
                         </div>
                     </div>
+                    <div class="viewCount">조회수:<span th:text="${detail.view}"></span> </div>
                     <div class="admin">
                         <a th:href="@{|/edit/${detail.id}|}">Modify</a>
                         <span class="line"></span>
                         <a>Delete</a>
                     </div>
+
                     <div id="entry2Comment">
                         <div id="communicate">
                             <form id="commentForm" name="commentForm">

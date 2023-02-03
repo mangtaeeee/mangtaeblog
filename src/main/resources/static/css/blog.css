@@ -246,6 +246,10 @@ a, input, textarea, li {
 .content a {
     color: #0070d1;
 }
+.viewCount {
+    float: right;
+
+}
 
 .content p + p {
     margin: 1px auto 0;
