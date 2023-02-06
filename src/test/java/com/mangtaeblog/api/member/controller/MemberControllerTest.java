@@ -58,7 +58,7 @@ class MemberControllerTest {
 
         String json = objectMapper.writeValueAsString(member);
         //when
-        mockMvc.perform(post("/member/join")
+        mockMvc.perform(post("/api/member/join")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -93,7 +93,7 @@ class MemberControllerTest {
         postRepository.save(post);
 
         //excepted
-        mockMvc.perform(get("/member/{memberId}",member.getId())
+        mockMvc.perform(get("/api/member/{memberId}",member.getId())
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(member.getId()))
@@ -123,7 +123,7 @@ class MemberControllerTest {
         String json = objectMapper.writeValueAsString(userLogin);
 
         //excepted
-        mockMvc.perform(post("/member/login")
+        mockMvc.perform(post("/api/member/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(MockMvcResultMatchers.status().isOk())

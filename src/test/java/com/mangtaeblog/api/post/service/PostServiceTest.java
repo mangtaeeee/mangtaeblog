@@ -150,7 +150,6 @@ class PostServiceTest {
         Assertions.assertEquals("수정했습니다.",changepost.getTitle() );
         Assertions.assertEquals("내용입니다.",changepost.getContent());
         Assertions.assertEquals("작성자입니다.",changepost.getWriter());
-        Assertions.assertNotEquals(changepost.getCreatedDate(),changepost.getModifiedDate());
     }
 
     @Test

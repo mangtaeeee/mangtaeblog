@@ -15,7 +15,7 @@
     <script src="/js/app.js"></script>
 </head>
 <body>
-<div >
+<div>
     <div>
         <div class="container">
             <div th:replace="common/Sidebar :: header"></div>
@@ -24,6 +24,7 @@
             <div id="content-inner">
                 <div id="head">
                     <h2 th:text="${detail.title}"></h2>
+                    <input type="hidden" id="id" th:value="${detail.id}">
                     <div class="date" th:text="${detail.createDate}">
 
                     </div>
@@ -37,11 +38,11 @@
                             <p th:text="${detail.content}"></p>
                         </div>
                     </div>
-                    <div class="viewCount">조회수:<span th:text="${detail.view}"></span> </div>
+                    <div class="viewCount">조회수:<span th:text="${detail.view}"></span></div>
                     <div class="admin">
                         <a th:href="@{|/edit/${detail.id}|}">Modify</a>
                         <span class="line"></span>
-                        <a>Delete</a>
+                        <a id="btn-delete">Delete</a>
                     </div>
 
                     <div id="entry2Comment">
@@ -104,6 +105,11 @@
                 _this.commentSave();
             });
 
+            // 게시글 삭제
+            $('#btn-delete').click(function () {
+                _this.delete();
+            });
+
         },
 
 
@@ -130,8 +136,31 @@
                     alert('댓글이 등록되었습니다.');
                     window.location.reload();
                 }).fail(function (error) {
-                    alert(JSON.stringify(error));
+                    alert(JSON.stringify(error.responseJSON.message));
                 });
+            }
+        },
+
+        /** 글 삭제 */
+        delete: function () {
+            const id = $('#id').val();
+            const con_check = confirm("정말 삭제하시겠습니까?");
+
+            if (con_check == true) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/posts/delete/' + id,
+                    dataType: 'JSON',
+                    contentType: 'application/json; charset=utf-8'
+
+                }).done(function () {
+                    alert("삭제되었습니다.");
+                    window.location.href = '/';
+                }).fail(function (error) {
+                    alert(JSON.stringify(error.responseJSON.message));
+                });
+            } else {
+                return false;
             }
         },
     }

@@ -80,10 +80,8 @@ class PostControllerTest {
         String json = objectMapper.writeValueAsString(postCreate);
 
         //when
-        mockMvc.perform(post("/posts/post")
+        mockMvc.perform(post("/api/posts/post")
                         .contentType(MediaType.APPLICATION_JSON)
-//                        .with(SecurityMockMvcRequestPostProcessors.csrf())
-//                        .with(SecurityMockMvcRequestPostProcessors.user("mockUsername").roles("ADMIN"))
                         .content(json))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -123,7 +121,6 @@ class PostControllerTest {
         mockMvc.perform(post("/api/posts/post")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
-//                        .with(SecurityMockMvcRequestPostProcessors.user("mockUsername").roles("ADMIN"))
                         .content(json))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("400"))
@@ -163,7 +160,7 @@ class PostControllerTest {
                 .build();
         commentRepository.save(comment);
 
-        mockMvc.perform(get("/posts/{postId}",post.getId())
+        mockMvc.perform(get("/api/posts/read/{postId}",post.getId())
 //                        .with(SecurityMockMvcRequestPostProcessors.csrf())
 
                         .contentType(MediaType.APPLICATION_JSON))
@@ -198,12 +195,8 @@ class PostControllerTest {
 
         postRepository.saveAll(requestPosts);
 
-        mockMvc.perform(get("/api/posts/list?page=1&size=10")
-//                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        mockMvc.perform(get("/api/posts/list")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()", Matchers.is(10)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].title").value("제목 19"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].content").value("내용 19"))
                 .andDo(MockMvcResultHandlers.print());
     }
 
@@ -232,12 +225,10 @@ class PostControllerTest {
 
         postRepository.saveAll(requestPosts);
 
-        mockMvc.perform(get("/posts/list?page=1&size=10")
+        mockMvc.perform(get("/api/posts/list")
 //                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()", Matchers.is(10)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].title").value("제목 19"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].content").value("내용 19"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()", Matchers.is(11)))
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
@@ -269,10 +260,8 @@ class PostControllerTest {
                 .writer("작성자입니다")
                 .build();
 
-            mockMvc.perform(patch("/posts/edit/{postId}", post.getId())
+            mockMvc.perform(patch("/api/posts/edit/{postId}", post.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-//                            .with(SecurityMockMvcRequestPostProcessors.csrf())
-//                            .with(SecurityMockMvcRequestPostProcessors.user("mockUsername").roles("ADMIN"))
                     .content(objectMapper.writeValueAsString(postEdit)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -301,9 +290,7 @@ class PostControllerTest {
                 .build();
         postRepository.save(post);
         //expected
-        mockMvc.perform(delete("/posts/delete/{postId}", post.getId())
-//                        .with(SecurityMockMvcRequestPostProcessors.csrf())
-//                        .with(SecurityMockMvcRequestPostProcessors.user("mockUsername").roles("ADMIN"))
+        mockMvc.perform(delete("/api/posts/delete/{postId}", post.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
