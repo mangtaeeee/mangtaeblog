@@ -67,8 +67,8 @@ class CommentServiceTest {
         memberRepository.save(member);
 
         Post post = Post.builder()
-                .title("제목입니다.")
-                .content("문득 새로운 직장을 찾다가 ORM 이라는것에 대해 알게되어 깊이 찾아보고 JPA 와 QueryDSL 공부를 통해 개인 프로젝트를 만들고 싶어졋다.근데 게시판을 만들다 보니 문득 블로그 같은걸 한번 만들어보는건 어떤지 생각이 들어 프로젝트 명세서를 만들어본다.\n" +
+                .title("개인프로젝트 만들기.")
+                .content("문득 새로운 직장을 찾다가 ORM 이라는것에 대해 알게되어 깊이 찾아보고 JPA 와 QueryDSL 공부를 통해 개인 프로젝트를 만들어 보았다.문득 게시판을 만들다 티스토리 블로그 같은걸 한번 만들어보는건 어떤지 생각이 들어 프로젝트 명세서를 만들어본다.\n" +
                         "\n" +
                         "프로젝트 명세서는 다음과 같다.\n" +
                         "\n" +

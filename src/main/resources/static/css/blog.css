@@ -246,6 +246,10 @@ a, input, textarea, li {
     padding: 0 0 20px;
     font-size: 16px;
 }
+#editContent {
+    font-size: 16px;
+    width: 100%;
+}
 .content a {
     color: #0070d1;
 }

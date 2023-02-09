@@ -69,11 +69,13 @@
                                         <div class="rp_general">
                                             <p></p>
                                             <div class="info">
+                                                <input type="hidden" id="commentId" th:value="${comment.id}">
                                                 <span class="name" th:text="${comment.userId}"></span>
                                                 <span class="date" th:text="${comment.createDate}"></span>
                                             </div>
                                             <div class="clear"></div>
                                             <p th:text="${comment.content}"></p>
+                                            <button id="btn-comment-delete" class="btn-comment-delete">삭제</button>
                                             <div class="control"></div>
                                         </div>
                                     </li>
@@ -110,6 +112,12 @@
                 _this.delete();
             });
 
+            //댓글 삭제
+            $('#btn-comment-delete').click(function () {
+                _this.commentDelete();
+            });
+
+
         },
 
 
@@ -140,6 +148,31 @@
                 });
             }
         },
+
+        /** 댓글 삭제 */
+        commentDelete: function () {
+            const postId = $("#postId").val();
+            const commentId = $("#commentId").val()
+
+            const con_check = confirm("정말 삭제하시겠습니까?");
+            if (con_check == true) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/posts/' + postId + '/comments/' + commentId,
+                    dataType: 'JSON',
+                    contentType: 'application/json; charset=utf-8',
+                }).done(function () {
+                    alert("삭제되었습니다.");
+                    window.location.reload();
+                }).fail(function (error) {
+                    alert(JSON.stringify(error.responseJSON.message));
+                });
+            } else {
+                return false;
+            }
+
+        },
+
 
         /** 글 삭제 */
         delete: function () {
