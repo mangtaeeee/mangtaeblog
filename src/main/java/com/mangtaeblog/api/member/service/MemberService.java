@@ -9,6 +9,7 @@ import com.mangtaeblog.api.member.request.MemberCreate;
 import com.mangtaeblog.api.member.request.UserLogin;
 import com.mangtaeblog.api.member.response.MemberResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,13 +17,14 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder encoder;
 
     public Member join(MemberCreate request) {
 
         Member member = Member.builder()
                 .userId(request.getUserId())
                 .username(request.getUsername())
-                .password(request.getPassword())
+                .password(encoder.encode(request.getPassword()))
                 .email(request.getEmail())
                 .role(Role.USER)
                 .build();
