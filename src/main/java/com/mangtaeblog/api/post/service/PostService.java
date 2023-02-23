@@ -66,7 +66,6 @@ public class PostService {
     }
 
     /**
-     *
      * @param : READ 글 전체 조회
      */
     @Transactional(readOnly = true)
@@ -95,7 +94,7 @@ public class PostService {
         Page<Post> postList = postRepository.findAll(pageable);
         List<PostResponse> postResponseList = new ArrayList<>();
 
-        for(Post post : postList) {
+        for (Post post : postList) {
             PostResponse postResponse = PostResponse.builder()
                     .id(post.getId())
                     .title(post.getTitle())
@@ -114,7 +113,7 @@ public class PostService {
 
 
     @Transactional
-    public void edit(Long id, PostEdit postEdit){
+    public void edit(Long id, PostEdit postEdit) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostNotFound());
 
@@ -127,14 +126,14 @@ public class PostService {
         post.edit(postEditor);
 
     }
+
     @Transactional
-    public void delete(Long id){
+    public void delete(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostNotFound());
 
         postRepository.delete(post);
     }
-
 
 
     @Transactional

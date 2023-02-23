@@ -46,7 +46,7 @@ public class MemberService {
                 .build();
     }
 
-    public MemberResponse findOne(Long id){
+    public MemberResponse findOne(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new MemberNotFound());
 
