@@ -48,5 +48,11 @@
       <img width="1605" alt="게시글 등록" src="https://user-images.githubusercontent.com/90013740/222346469-f563da18-bbf0-4256-8d95-4a324623cec7.png">
       <strong>3. 게시글 상세보기</strong>
       <img width="1508" alt="게시글 상세보기" src="https://user-images.githubusercontent.com/90013740/222346585-7aa36121-f60e-4753-bfd6-736bdbce83af.png">
-    </div>
+      <strong>4. 게시글 수정</strong>
+      <img width="1819" alt="게시글수정1" src="https://user-images.githubusercontent.com/90013740/222347972-96584e2b-ce41-475e-baaf-1b19696f65e3.png">
+      <img width="1745" alt="게시글수정2" src="https://user-images.githubusercontent.com/90013740/222347987-44d08a21-370d-4275-af7e-e09c31f87c3c.png">
+      <strong>5. 게시글 삭제</strong>
+      <img width="1848" alt="게시글 삭제1" src="https://user-images.githubusercontent.com/90013740/222348205-95444f4c-c79b-4bcd-b409-e72d5302fe9f.png">
+      <img width="1842" alt="게시글 삭제2" src="https://user-images.githubusercontent.com/90013740/222348226-a0fbde01-162e-48b6-bbed-123a4695eaa4.png">
+  </div>
   </details>
