@@ -56,3 +56,16 @@
       <img width="1842" alt="게시글 삭제2" src="https://user-images.githubusercontent.com/90013740/222348226-a0fbde01-162e-48b6-bbed-123a4695eaa4.png">
   </div>
   </details>
+  <details>
+  <summary><h4>댓글 관련</h4></summary>
+    <div markdown="1">
+      <strong>1.댓글 등록</strong>
+      <img width="1427" alt="댓글 등록" src="https://user-images.githubusercontent.com/90013740/222349311-1991afe6-b529-4d95-9e6f-ae4ddf611908.png">
+      <img width="1508" alt="댓글 등록2" src="https://user-images.githubusercontent.com/90013740/222349335-f470cfff-19d5-4d8d-8a80-423e238f7e01.png">
+      <strong>2.댓글 삭제</strong>
+      <img width="1816" alt="댓글 삭제" src="https://user-images.githubusercontent.com/90013740/222349405-4c0d2110-8ff8-488e-8c23-0b38080c96e1.png">
+      <img width="1827" alt="댓글 삭제2" src="https://user-images.githubusercontent.com/90013740/222349424-7ea9a10e-f763-4983-8c1f-d90b68248770.png">
+      <strong>3.댓글 수정</strong>
+      화면 
+  </div>
+  </details>
