@@ -16,3 +16,10 @@
 <h3>3. 사용 기술</h3>
 <h4>3-1 백엔드</h4>
   <h5><p>주요 프레임워크 / 라이브러리<p></h5>
+  <ul>
+    <li>Java 11</li>
+    <li>SpringBoot 2.5.6</li>
+    <li>JPA(Spring Data JPA)</li>
+    <li>Spring Security</li>
+    <li>JWT</li>
+  </ul>
