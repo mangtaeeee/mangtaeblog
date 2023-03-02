@@ -40,10 +40,10 @@
   </ul>
   
   <details>
-    <h3><summary>4.구현 화면</summary></h3>
+    <summary>4.구현 화면</summary>
     <div markdown="1">
-      <h4>1. 게시글 전체 목록</h4>
-      ![스크린샷 2023-02-06 오후 10.08.39.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e001faae-a8a4-47ea-bad2-61e69d2ee137/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-02-06_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_10.08.39.png)
+      <li><h4>1. 게시글 전체 목록</h4>
+      ![스크린샷 2023-02-06 오후 10.08.39.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e001faae-a8a4-47ea-bad2-61e69d2ee137/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-02-06_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_10.08.39.png)</li>
     </div>
   <div markdown="1">
       <h4>2. 게시물 등록</h4>
