@@ -43,7 +43,6 @@
   <summary><h4>게시글 관련</h4></summary>
     <div markdown="1">
       1. 게시글 전체 목록
-      
-      ![스크린샷 2023-02-06 오후 10.08.39.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e001faae-a8a4-47ea-bad2-61e69d2ee137/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-02-06_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_10.08.39.png)
+      <img width="1575" alt="게시글 전체 목록" src="https://user-images.githubusercontent.com/90013740/222345919-d2a2025a-49a7-4037-80a3-2ba367bd8d62.png">
     </div>
   </details>
