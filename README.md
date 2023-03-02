@@ -23,3 +23,11 @@
     <li>Spring Security</li>
     <li>JWT</li>
   </ul>
+  <h5><p>Build Tool<p></h5>
+  <ul>
+    <li>Gradle</li>
+  </ul>
+  <h5><p>DataBase<p></h5>
+  <ul>
+    <li>Postgresql</li>
+  </ul>
