@@ -72,7 +72,6 @@
   <br></br>
   <h3>5.구조 및 설계</h3>
   <strong>1.DB 설계</strong>
-  <img alt="DB 설계" src="https![DB](https://user-images.githubusercontent.com/90013740/222351391-2d49d97a-e52b-4f54-b8c3-bbbfb3b78049.png)
-://user-images.githubusercontent.com/90013740/222349405-4c0d2110-8ff8-488e-8c23-0b38080c96e1.png">
+  <img alt="DB 설계" src="![DB](https://user-images.githubusercontent.com/90013740/222351525-9434e7f1-9e9e-4226-a118-87baeab12ea6.png)">
 
 
