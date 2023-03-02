@@ -42,13 +42,13 @@
   <details>
   <summary><h4>게시글 관련</h4></summary>
     <div markdown="1">
-      **1. 게시글 전체 목록**
+      1. 게시글 전체 목록
       <img width="1575" alt="게시글 전체 목록" src="https://user-images.githubusercontent.com/90013740/222345919-d2a2025a-49a7-4037-80a3-2ba367bd8d62.png">
       
-      **2. 게시글 등록**
+      2. 게시글 등록
       <img width="1605" alt="게시글 등록" src="https://user-images.githubusercontent.com/90013740/222346469-f563da18-bbf0-4256-8d95-4a324623cec7.png">
       
-      **3. 게시글 상세보기**
+      3. 게시글 상세보기
       <img width="1508" alt="게시글 상세보기" src="https://user-images.githubusercontent.com/90013740/222346585-7aa36121-f60e-4753-bfd6-736bdbce83af.png">
     </div>
   </details>
