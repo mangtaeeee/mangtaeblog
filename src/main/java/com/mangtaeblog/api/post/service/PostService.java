@@ -82,8 +82,6 @@ public class PostService {
                         .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
-
-
         return collect;
     }
 

@@ -42,6 +42,7 @@ public class PostViewController {
         return "/blog/PostEdit";
     }
 
+    //화면 전환
     @GetMapping("/write")
     public String write() {
         return "/blog/PostWrite";
