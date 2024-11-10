@@ -33,7 +33,7 @@ public class PostService {
     public void write(PostCreate postCreate) {
 
         Member member = memberRepository.findById(postCreate.getMemberId())
-                .orElseThrow(() -> new MemberNotFound());
+                .orElseThrow(MemberNotFound::new);
 
         Post post = Post.builder()
                 .title(postCreate.getTitle())
@@ -52,7 +52,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostResponse findOne(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new PostNotFound());
+                .orElseThrow(PostNotFound::new);
         return PostResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
@@ -61,7 +61,7 @@ public class PostService {
                 .view(post.getView())
                 .createDate(post.getCreatedDate())
                 .updateDate(post.getModifiedDate())
-                .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
+                .comments(post.getComments().stream().map(CommentResponse::new).collect(Collectors.toList()))
                 .build();
     }
 
@@ -79,7 +79,7 @@ public class PostService {
                         .view(post.getView())
                         .updateDate(post.getModifiedDate())
                         .createDate(post.getCreatedDate())
-                        .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
+                        .comments(post.getComments().stream().map(CommentResponse::new).collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
         return collect;
@@ -101,7 +101,7 @@ public class PostService {
                     .view(post.getView())
                     .updateDate(post.getModifiedDate())
                     .createDate(post.getCreatedDate())
-                    .comments(post.getComments().stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList()))
+                    .comments(post.getComments().stream().map(CommentResponse::new).collect(Collectors.toList()))
                     .build();
             postResponseList.add(postResponse);
         }
@@ -113,7 +113,7 @@ public class PostService {
     @Transactional
     public void edit(Long id, PostEdit postEdit) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new PostNotFound());
+                .orElseThrow(PostNotFound::new);
 
         PostEditor.PostEditorBuilder postEditorBuilder = post.toEditor();
 
@@ -128,14 +128,14 @@ public class PostService {
     @Transactional
     public void delete(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new PostNotFound());
+                .orElseThrow(PostNotFound::new);
 
         postRepository.delete(post);
     }
 
 
     @Transactional
-    public int updateView(Long id) {
-        return postRepository.updateView(id);
+    public void updateView(Long id) {
+        postRepository.updateView(id);
     }
 }

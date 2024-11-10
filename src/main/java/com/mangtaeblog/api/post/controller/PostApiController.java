@@ -23,10 +23,10 @@ public class PostApiController {
 
 
     @PostMapping("/posts/post")
-    public ResponseEntity post(@RequestBody @Valid PostCreate postCreate) {
+    public ResponseEntity<Void> post(@RequestBody @Valid PostCreate postCreate) {
         postCreate.validate();
         postService.write(postCreate);
-       return ResponseEntity.ok(postCreate);
+       return ResponseEntity.ok().build();
     }
 
     @GetMapping("/posts/read/{postId}")
@@ -41,15 +41,15 @@ public class PostApiController {
     }
 
     @PatchMapping("/posts/edit/{postId}")
-    public ResponseEntity edit(@PathVariable Long postId, @RequestBody @Valid PostEdit postEdit){
+    public ResponseEntity<Void> edit(@PathVariable Long postId, @RequestBody @Valid PostEdit postEdit){
         postService.edit(postId,postEdit);
-        return ResponseEntity.ok(postId);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/posts/delete/{postId}")
-    public ResponseEntity delete(@PathVariable Long postId) {
+    public ResponseEntity<Void> delete(@PathVariable Long postId) {
         postService.delete(postId);
-        return ResponseEntity.ok(postId);
+        return ResponseEntity.ok().build();
     }
 
 
