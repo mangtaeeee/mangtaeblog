@@ -70,7 +70,7 @@ public class PostService {
      */
     @Transactional(readOnly = true)
     public List<PostResponse> findAll() {
-        List<PostResponse> collect = postRepository.findAll().stream()
+        return postRepository.findAll().stream()
                 .map(post -> PostResponse.builder()
                         .id(post.getId())
                         .title(post.getTitle())
@@ -82,31 +82,24 @@ public class PostService {
                         .comments(post.getComments().stream().map(CommentResponse::new).collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
-        return collect;
     }
 
 
     @Transactional(readOnly = true)
     public Page<PostResponse> findAllPaging(Pageable pageable) {
-
-        Page<Post> postList = postRepository.findAll(pageable);
-        List<PostResponse> postResponseList = new ArrayList<>();
-
-        for (Post post : postList) {
-            PostResponse postResponse = PostResponse.builder()
-                    .id(post.getId())
-                    .title(post.getTitle())
-                    .content(post.getContent())
-                    .writer(post.getWriter())
-                    .view(post.getView())
-                    .updateDate(post.getModifiedDate())
-                    .createDate(post.getCreatedDate())
-                    .comments(post.getComments().stream().map(CommentResponse::new).collect(Collectors.toList()))
-                    .build();
-            postResponseList.add(postResponse);
-        }
-
-        return new PageImpl<>(postResponseList, pageable, postList.getTotalElements());
+        return postRepository.findAll(pageable)
+                .map(post -> PostResponse.builder()
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .writer(post.getWriter())
+                        .view(post.getView())
+                        .updateDate(post.getModifiedDate())
+                        .createDate(post.getCreatedDate())
+                        .comments(post.getComments().stream()
+                                .map(CommentResponse::new)
+                                .collect(Collectors.toList()))
+                        .build());
     }
 
 
