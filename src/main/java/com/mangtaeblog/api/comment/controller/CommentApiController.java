@@ -19,24 +19,25 @@ public class CommentApiController {
     private final CommentService commentService;
 
     @PostMapping("/posts/{postId}/comments")
-    public ResponseEntity save(@PathVariable Long postId, @RequestBody @Valid CommentCreate commentCreate) {
-        return ResponseEntity.ok(commentService.save(postId,commentCreate));
+    public ResponseEntity<Void> save(@PathVariable Long postId, @RequestBody @Valid CommentCreate commentCreate) {
+        commentService.save(postId,commentCreate);
+        return ResponseEntity.ok().build();
     }
     @GetMapping("/posts/{postId}/comments")
-    public List<CommentResponse> findComments(@PathVariable Long postId) {
-        return commentService.findAll(postId);
+    public ResponseEntity<List<CommentResponse>> findComments(@PathVariable Long postId) {
+        return ResponseEntity.ok(commentService.findAll(postId));
     }
 
 
     @PatchMapping("/posts/{postId}/comments/{commentId}")
-    public ResponseEntity update(@PathVariable Long commentId, @RequestBody @Valid CommentEdit commentEdit) {
+    public ResponseEntity<Void> update(@PathVariable Long commentId, @RequestBody @Valid CommentEdit commentEdit) {
         commentService.update(commentId, commentEdit);
-        return ResponseEntity.ok(commentEdit);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/posts/{postId}/comments/{commentId}")
-    public ResponseEntity delete(@PathVariable Long commentId) {
+    public ResponseEntity<Void> delete(@PathVariable Long commentId) {
         commentService.delete(commentId);
-        return ResponseEntity.ok(commentId);
+        return ResponseEntity.ok().build();
     }
 }

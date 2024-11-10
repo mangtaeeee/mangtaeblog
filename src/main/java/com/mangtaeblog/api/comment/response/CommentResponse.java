@@ -10,16 +10,16 @@ import java.util.List;
 @Getter
 public class CommentResponse {
 
-    private Long id;
-    private String content;
-    private String userId;
-    private Long postId;
+    private final Long id;
+    private final String content;
+    private final String userId;
+    private final Long postId;
 
-    private String createDate;
+    private final String createDate;
 
-    private String updateDate;
+    private final String updateDate;
 
-    private List<CommentResponse> comments = new ArrayList<>();
+    private final List<CommentResponse> comments = new ArrayList<>();
 
     @Builder
     public CommentResponse(Comment comment) {

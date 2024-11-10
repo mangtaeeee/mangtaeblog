@@ -2,14 +2,7 @@ package com.mangtaeblog.api.comment.domain;
 
 import lombok.Getter;
 
-@Getter
-public class CommentEditor {
-
-    private final String content;
-
-    public CommentEditor(String content) {
-        this.content = content;
-    }
+public record CommentEditor(String content) {
 
     public static CommentEditorBuilder builder() {
         return new CommentEditorBuilder();
@@ -22,7 +15,7 @@ public class CommentEditor {
         }
 
         public CommentEditorBuilder content(final String content) {
-            if(content != null){
+            if (content != null) {
                 this.content = content;
             }
             return this;
@@ -33,8 +26,6 @@ public class CommentEditor {
         }
 
     }
-
-
 
 
 }

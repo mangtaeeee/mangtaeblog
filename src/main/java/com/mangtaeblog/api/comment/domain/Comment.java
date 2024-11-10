@@ -60,7 +60,7 @@ public class Comment extends BasicTimeEntity {
     }
 
     public void edit(CommentEditor commentEditor) {
-        content = commentEditor.getContent();
+        content = commentEditor.content();
     }
 
 

@@ -29,13 +29,13 @@ public class CommentService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Long save(Long postId,CommentCreate commentCreate){
+    public void save(Long postId,CommentCreate commentCreate){
 
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFound());
+                .orElseThrow(PostNotFound::new);
 
         Member member = memberRepository.findById(commentCreate.getMemberId())
-                .orElseThrow(() -> new MemberNotFound());
+                .orElseThrow(MemberNotFound::new);
 
         Comment comment = Comment.builder()
                 .content(commentCreate.getContent())
@@ -45,28 +45,27 @@ public class CommentService {
 
         commentRepository.save(comment);
 
-        return comment.getId();
     }
 
     @Transactional(readOnly = true)
     public List<CommentResponse> findAll(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new PostNotFound());
+                .orElseThrow(PostNotFound::new);
 
         List<Comment> comments = post.getComments();
 
-        return comments.stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList());
+        return comments.stream().map(CommentResponse::new).collect(Collectors.toList());
     }
 
     @Transactional
     public void update(Long commentId, CommentEdit commentEdit) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new CommentNotFound());
+                .orElseThrow(CommentNotFound::new);
 
 
         CommentEditor.CommentEditorBuilder commentEditorBuilder = comment.toEditor();
 
-        CommentEditor commentEditor = commentEditorBuilder.content(commentEdit.getContent())
+        CommentEditor commentEditor = commentEditorBuilder.content(commentEdit.content())
                 .build();
 
         comment.edit(commentEditor);
@@ -75,7 +74,7 @@ public class CommentService {
     @Transactional
     public void delete(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new CommentNotFound());
+                .orElseThrow(CommentNotFound::new);
         commentRepository.delete(comment);
     }
 
