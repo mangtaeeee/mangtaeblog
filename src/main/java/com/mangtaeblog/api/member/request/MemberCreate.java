@@ -1,9 +1,9 @@
 package com.mangtaeblog.api.member.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @Setter
 @Getter

@@ -1,9 +1,9 @@
 package com.mangtaeblog.api.comment.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public record CommentEdit(

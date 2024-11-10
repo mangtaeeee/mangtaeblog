@@ -1,9 +1,9 @@
 package com.mangtaeblog.api.post.request;
 
 import com.mangtaeblog.api.exception.InvalidRequest;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 
 /**
  * @param : 글 작성을 위한 클래스

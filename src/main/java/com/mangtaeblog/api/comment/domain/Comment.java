@@ -6,7 +6,7 @@ import com.mangtaeblog.api.post.domain.Post;
 import com.mangtaeblog.api.shared.domain.BasicTimeEntity;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

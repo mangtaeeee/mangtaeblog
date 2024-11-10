@@ -1,11 +1,11 @@
 package com.mangtaeblog.api.post.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**

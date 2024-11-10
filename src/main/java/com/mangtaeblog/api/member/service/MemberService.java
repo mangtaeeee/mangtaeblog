@@ -8,10 +8,10 @@ import com.mangtaeblog.api.member.repository.MemberRepository;
 import com.mangtaeblog.api.member.request.MemberCreate;
 import com.mangtaeblog.api.member.request.UserLogin;
 import com.mangtaeblog.api.member.response.MemberResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 
 @Service
 @RequiredArgsConstructor

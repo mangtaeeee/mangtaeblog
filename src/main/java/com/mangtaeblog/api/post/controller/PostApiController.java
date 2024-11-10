@@ -4,6 +4,7 @@ import com.mangtaeblog.api.post.request.PostCreate;
 import com.mangtaeblog.api.post.request.PostEdit;
 import com.mangtaeblog.api.post.response.PostResponse;
 import com.mangtaeblog.api.post.service.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
