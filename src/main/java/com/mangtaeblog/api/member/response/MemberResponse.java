@@ -1,19 +1,18 @@
 package com.mangtaeblog.api.member.response;
 
+import com.mangtaeblog.api.member.domain.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
-@RequiredArgsConstructor
 @Builder
-public class MemberResponse {
+public record MemberResponse(
+        Long id,
+        String username,
+        String userId,
+        String email,
+        Role role,
+        String createDate,
+        String updateDate) {
 
-    private final Long id;
-    private final String username;
-    private final String userId;
-    private final String email;
-    private final Enum role;
-    private final String createDate;
-    private final String updateDate;
 }

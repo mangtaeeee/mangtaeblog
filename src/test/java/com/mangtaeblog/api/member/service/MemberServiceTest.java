@@ -64,7 +64,7 @@ class MemberServiceTest {
         MemberResponse response = memberService.findOne(member.getId());
 
         //then
-        Assertions.assertEquals(member.getId(), response.getId());
+        Assertions.assertEquals(member.getId(), response.id());
 
     }
     @Test

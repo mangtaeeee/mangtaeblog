@@ -9,11 +9,11 @@ import java.io.Serializable;
 @Getter
 public class UserSessionDto implements Serializable {
 
-    private String userId;
-    private String password;
-    private String username;
-    private String email;
-    private Role role;
+    private final String userId;
+    private final  String password;
+    private final String username;
+    private final String email;
+    private final Role role;
 
     public UserSessionDto(Member member) {
         this.userId = member.getUserId();

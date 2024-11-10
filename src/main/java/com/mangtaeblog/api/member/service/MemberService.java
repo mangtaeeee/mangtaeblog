@@ -38,7 +38,7 @@ public class MemberService {
     public MemberResponse singin(UserLogin userLogin) {
 
         Member member = memberRepository.findByUserIdAndPassword(userLogin.getUserId(), userLogin.getPassword())
-                .orElseThrow(() -> new MemberInvalidSignInformation());
+                .orElseThrow(MemberInvalidSignInformation::new);
 
         return MemberResponse.builder()
                 .id(member.getId())
@@ -69,7 +69,7 @@ public class MemberService {
 
     public MemberResponse findOne(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new MemberNotFound());
+                .orElseThrow(MemberNotFound::new);
 
         return MemberResponse.builder()
                 .id(member.getId())
@@ -84,7 +84,7 @@ public class MemberService {
 
     public void secession(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new MemberNotFound());
+                .orElseThrow(MemberNotFound::new);
 
         memberRepository.delete(member);
     }
