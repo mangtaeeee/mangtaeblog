@@ -137,7 +137,6 @@
                 $.ajax({
                     type: 'POST',
                     url: '/api/posts/' + postId + '/comments',
-                    dataType: 'JSON',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(data)
                 }).done(function () {
@@ -159,7 +158,6 @@
                 $.ajax({
                     type: 'DELETE',
                     url: '/api/posts/' + postId + '/comments/' + commentId,
-                    dataType: 'JSON',
                     contentType: 'application/json; charset=utf-8',
                 }).done(function () {
                     alert("삭제되었습니다.");
@@ -183,7 +181,6 @@
                 $.ajax({
                     type: 'DELETE',
                     url: '/api/posts/delete/' + id,
-                    dataType: 'JSON',
                     contentType: 'application/json; charset=utf-8'
 
                 }).done(function () {

@@ -71,7 +71,6 @@
                 $.ajax({
                     type: 'POST',
                     url: '/api/posts/post',
-                    dataType: 'JSON',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(data)
                 }).done(function () {

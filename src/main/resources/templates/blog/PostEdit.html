@@ -87,7 +87,6 @@
                     $.ajax({
                         type: 'PATCH',
                         url: '/api/posts/edit/' + data.id,
-                        dataType: 'JSON',
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify(data)
                     }).done(function () {
