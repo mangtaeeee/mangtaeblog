@@ -18,7 +18,7 @@
 <div>
     <div>
         <div class="container">
-            <div th:replace="common/Sidebar :: header"></div>
+            <div th:replace="~{common/Sidebar :: header}"></div>
         </div>
         <div id="content" th:each="detail : ${detail}">
             <div id="content-inner">

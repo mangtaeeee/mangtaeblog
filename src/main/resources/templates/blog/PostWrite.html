@@ -18,12 +18,12 @@
 <div>
     <div>
         <div class="container">
-            <div th:replace="common/Sidebar :: header"></div>
+            <div th:replace="~{common/Sidebar :: header}"></div>
         </div>
         <div id="content">
             <div id="content-inner">
                 <div class="head">
-                    <h2><input class="textarea_tit" placeholder="제목을 입력하세요" ></h2>
+                    <h2><input class="textarea_tit" placeholder="제목을 입력하세요"></h2>
                 </div>
 
                 <div id="body" class="entry">
@@ -31,11 +31,11 @@
                     <input type="text" id="memberId">
                     <div class="tt_article_useless_p_margin contents_style">
                         <div class="article">
-                            <textarea class="content" id="articleContent"  rows="30" cols="75"></textarea>
+                            <textarea class="content" id="articleContent" rows="30" cols="75"></textarea>
                         </div>
                     </div>
                 </div>
-                <div >
+                <div>
                     <button id="btn-save" class="btn-update">저장</button>
                     <span class="line"></span>
                     <button>취소</button>
@@ -55,10 +55,9 @@
             });
 
 
-
         },
         /** 글 작성 */
-        save : function () {
+        save: function () {
             const data = {
                 memberId: $("#memberId").val(),
                 title: $('.textarea_tit').val(),

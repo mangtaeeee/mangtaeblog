@@ -19,7 +19,7 @@
 <div>
     <div>
         <div class="container">
-            <div th:replace="common/Sidebar :: header"></div>
+            <div th:replace="~{common/Sidebar :: header}"></div>
         </div>
         <div id="content" th:each="detail : ${editData}">
             <div id="content-inner">
@@ -33,11 +33,12 @@
                     <div class="tag_label"></div>
                     <div class="tt_article_useless_p_margin contents_style">
                         <div class="mce-content-body content">
-                            <textarea class="editContent" id="editContent" rows="30" cols="75" th:text="${detail.content}"></textarea>
+                            <textarea class="editContent" id="editContent" rows="30" cols="75"
+                                      th:text="${detail.content}"></textarea>
                         </div>
                     </div>
                 </div>
-                <div >
+                <div>
                     <button id="btn-update" class="btn-update">저장</button>
                     <span class="line"></span>
                     <button>취소</button>
@@ -70,7 +71,7 @@
 
         },
         /** 글 수정 */
-        update : function () {
+        update: function () {
             const data = {
                 id: $('#id').val(),
                 title: $('#EditTitle').val(),
@@ -98,7 +99,6 @@
                 }
             }
         },
-
 
 
     }
