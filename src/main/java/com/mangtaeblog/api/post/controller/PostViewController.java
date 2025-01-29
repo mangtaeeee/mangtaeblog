@@ -18,35 +18,38 @@ public class PostViewController {
 
     private final PostService postService;
 
-
     @GetMapping("/")
-    public String index(Model model,@PageableDefault(page = 0,size = 5,sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<PostResponse> list = postService.findAllPaging(pageable);
+    public String index(Model model, @PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<PostResponse> list = postService.getPostsWithPagination(pageable);  // 메소드명 수정
         model.addAttribute("list", list);
 
         return "/blog/MainPage";
     }
+
     @GetMapping("/detail/{postId}")
     public String read(Model model, @PathVariable Long postId) {
-        PostResponse response = postService.findOne(postId);
-        postService.updateView(postId);
+        PostResponse response = postService.getPostById(postId);  // 메소드명 수정
+        postService.incrementViewCount(postId);  // 메소드명 수정
 
-        model.addAttribute("detail",response);
+        model.addAttribute("detail", response);
         return "/blog/BlogDetail";
     }
+
     @GetMapping("/edit/{postId}")
     public String edit(Model model, @PathVariable Long postId) {
-        PostResponse response = postService.findOne(postId);
+        PostResponse response = postService.getPostById(postId);  // 메소드명 수정
 
-        model.addAttribute("editData",response);
+        model.addAttribute("editData", response);
         return "/blog/PostEdit";
     }
 
-    //화면 전환
     @GetMapping("/write")
     public String write() {
         return "/blog/PostWrite";
     }
 
-
+    @GetMapping("/login")
+    public String loginPage() {
+        return "/login/Login";
+    }
 }

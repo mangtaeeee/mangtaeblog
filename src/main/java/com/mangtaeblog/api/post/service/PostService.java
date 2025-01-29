@@ -28,10 +28,9 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
 
-    //글 저장
+    // 글 저장
     @Transactional
-    public void write(PostCreate postCreate) {
-
+    public void createPost(PostCreate postCreate) {
         Member member = memberRepository.findById(postCreate.getMemberId())
                 .orElseThrow(MemberNotFound::new);
 
@@ -43,14 +42,13 @@ public class PostService {
                 .build();
 
         postRepository.save(post);
-
     }
 
     /**
      * @param : READ 단건 조회
      */
     @Transactional(readOnly = true)
-    public PostResponse findOne(Long id) {
+    public PostResponse getPostById(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(PostNotFound::new);
         return PostResponse.builder()
@@ -69,7 +67,7 @@ public class PostService {
      * @param : READ 글 전체 조회
      */
     @Transactional(readOnly = true)
-    public List<PostResponse> findAll() {
+    public List<PostResponse> getAllPosts() {
         return postRepository.findAll().stream()
                 .map(post -> PostResponse.builder()
                         .id(post.getId())
@@ -84,9 +82,8 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-
     @Transactional(readOnly = true)
-    public Page<PostResponse> findAllPaging(Pageable pageable) {
+    public Page<PostResponse> getPostsWithPagination(Pageable pageable) {
         return postRepository.findAll(pageable)
                 .map(post -> PostResponse.builder()
                         .id(post.getId())
@@ -102,9 +99,8 @@ public class PostService {
                         .build());
     }
 
-
     @Transactional
-    public void edit(Long id, PostEdit postEdit) {
+    public void updatePost(Long id, PostEdit postEdit) {
         Post post = postRepository.findById(id)
                 .orElseThrow(PostNotFound::new);
 
@@ -115,20 +111,18 @@ public class PostService {
                 .build();
 
         post.edit(postEditor);
-
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void deletePost(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(PostNotFound::new);
 
         postRepository.delete(post);
     }
 
-
     @Transactional
-    public void updateView(Long id) {
+    public void incrementViewCount(Long id) {
         postRepository.updateView(id);
     }
 }

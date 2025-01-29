@@ -41,10 +41,11 @@ class PostServiceTest {
     }
 
 
+
     @Test
     @DisplayName("글 작성")
     void 글작성() {
-        //given
+        // given
         Member member = Member.builder()
                 .userId("asd9658")
                 .username("홍길동")
@@ -55,20 +56,16 @@ class PostServiceTest {
 
         memberRepository.save(member);
 
-
-
-
         PostCreate postCreate = PostCreate.builder()
                 .title("제목입니다.")
                 .content("내용입니다.")
                 .memberId(member.getId())
                 .build();
 
-
-        //when
-        postService.write(postCreate);
-        //then
-        assertEquals(1L,postRepository.count());
+        // when
+        postService.createPost(postCreate);
+        // then
+        assertEquals(1L, postRepository.count());
         Post post = postRepository.findAll().get(0);
         assertEquals("제목입니다.", post.getTitle());
         assertEquals("내용입니다.", post.getContent());
@@ -77,8 +74,7 @@ class PostServiceTest {
     @Test
     @DisplayName("전체 조회 페이징 처리")
     void 전체조회() {
-
-        //given
+        // given
         Member member = Member.builder()
                 .userId("asd9658")
                 .username("홍길동")
@@ -100,21 +96,17 @@ class PostServiceTest {
 
         postRepository.saveAll(requestPosts);
 
+        // when
+        List<PostResponse> response = postService.getAllPosts();
 
-
-        //when
-        List<PostResponse> response = postService.findAll();
-
-        //then
-        assertEquals(30L,response.size());
+        // then
+        assertEquals(30L, response.size());
     }
-
 
     @Test
     @DisplayName("글 수정 null이 들어오면 기존의 있던값으로 저장되어야함")
     void 글제목수정() {
-
-        //given
+        // given
         Member member = Member.builder()
                 .userId("asd9658")
                 .username("홍길동")
@@ -133,7 +125,6 @@ class PostServiceTest {
                 .build();
 
         postRepository.save(post);
-
 
         PostEdit postEdit = PostEdit.builder()
                 .title("수정했습니다.")
@@ -141,20 +132,20 @@ class PostServiceTest {
                 .writer(null)
                 .build();
 
-        //when
-        postService.edit(post.getId(), postEdit);
+        // when
+        postService.updatePost(post.getId(), postEdit);
 
-        //then
+        // then
         Post changepost = postRepository.findById(post.getId())
                 .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다." + post.getId()));
-        Assertions.assertEquals("수정했습니다.",changepost.getTitle() );
-        Assertions.assertEquals("내용입니다.",changepost.getContent());
-        Assertions.assertEquals("작성자입니다.",changepost.getWriter());
+        Assertions.assertEquals("수정했습니다.", changepost.getTitle());
+        Assertions.assertEquals("내용입니다.", changepost.getContent());
+        Assertions.assertEquals("작성자입니다.", changepost.getWriter());
     }
 
     @Test
     void 글삭제() {
-        //given
+        // given
         Member member = Member.builder()
                 .userId("asd9658")
                 .username("홍길동")
@@ -173,9 +164,11 @@ class PostServiceTest {
                 .build();
 
         postRepository.save(post);
-        //when
-        postService.delete(post.getId());
-        //then
+
+        // when
+        postService.deletePost(post.getId());
+
+        // then
         assertEquals(0, postRepository.count());
     }
 }
