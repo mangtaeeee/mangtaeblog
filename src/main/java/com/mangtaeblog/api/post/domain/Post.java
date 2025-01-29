@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.BatchSize;
+
 import java.util.List;
 
 @Entity
@@ -42,7 +44,8 @@ public class Post extends BasicTimeEntity {
     @JoinColumn(name = "member_id",nullable = false)
     private Member member;
 
-    @OneToMany(mappedBy = "post",orphanRemoval = true)
+    @OneToMany(mappedBy = "post",orphanRemoval = true, fetch = FetchType.LAZY)
+    @BatchSize(size = 100)
     private List<Comment> comments;
 
     @Builder

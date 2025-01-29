@@ -16,7 +16,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +48,7 @@ public class PostService {
      */
     @Transactional(readOnly = true)
     public PostResponse getPostById(Long id) {
-        Post post = postRepository.findById(id)
+        Post post = postRepository.findByIdWithComments(id)
                 .orElseThrow(PostNotFound::new);
         return PostResponse.builder()
                 .id(post.getId())
@@ -84,7 +83,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public Page<PostResponse> getPostsWithPagination(Pageable pageable) {
-        return postRepository.findAll(pageable)
+        return postRepository.findAllWithComments(pageable)
                 .map(post -> PostResponse.builder()
                         .id(post.getId())
                         .title(post.getTitle())

@@ -20,7 +20,7 @@ public class PostViewController {
 
     @GetMapping("/")
     public String index(Model model, @PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<PostResponse> list = postService.getPostsWithPagination(pageable);  // 메소드명 수정
+        Page<PostResponse> list = postService.getPostsWithPagination(pageable);
         model.addAttribute("list", list);
 
         return "/blog/MainPage";
@@ -28,8 +28,8 @@ public class PostViewController {
 
     @GetMapping("/detail/{postId}")
     public String read(Model model, @PathVariable Long postId) {
-        PostResponse response = postService.getPostById(postId);  // 메소드명 수정
-        postService.incrementViewCount(postId);  // 메소드명 수정
+        PostResponse response = postService.getPostById(postId);
+        postService.incrementViewCount(postId);
 
         model.addAttribute("detail", response);
         return "/blog/BlogDetail";
@@ -37,7 +37,7 @@ public class PostViewController {
 
     @GetMapping("/edit/{postId}")
     public String edit(Model model, @PathVariable Long postId) {
-        PostResponse response = postService.getPostById(postId);  // 메소드명 수정
+        PostResponse response = postService.getPostById(postId);
 
         model.addAttribute("editData", response);
         return "/blog/PostEdit";
