@@ -54,7 +54,7 @@ public class CommentService {
 
         List<Comment> comments = post.getComments();
 
-        return comments.stream().map(CommentResponse::new).collect(Collectors.toList());
+        return comments.stream().map(CommentResponse::of).collect(Collectors.toList());
     }
 
     @Transactional

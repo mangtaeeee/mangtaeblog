@@ -2,33 +2,22 @@ package com.mangtaeblog.api.comment.response;
 
 import com.mangtaeblog.api.comment.domain.Comment;
 import lombok.Builder;
-import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-public class CommentResponse {
+@Builder
+public record CommentResponse(Long id, String content, String userId, Long postId,
+                              String createDate, String updateDate, List<CommentResponse> comments) {
 
-    private final Long id;
-    private final String content;
-    private final String userId;
-    private final Long postId;
-
-    private final String createDate;
-
-    private final String updateDate;
-
-    private final List<CommentResponse> comments = new ArrayList<>();
-
-    @Builder
-    public CommentResponse(Comment comment) {
-        this.id = comment.getId();
-        this.content = comment.getContent();
-        this.userId = comment.getMember().getUserId();;
-        this.postId = comment.getPost().getId();
-        this.createDate = comment.getCreatedDate();
-        this.updateDate = comment.getModifiedDate();
-
+    public static CommentResponse of(Comment comment) {
+        return CommentResponse.builder()
+                .id(comment.getId())
+                .content(comment.getContent())
+                .userId(comment.getMember().getUserId())
+                .postId(comment.getPost().getId())
+                .createDate(comment.getCreatedDate())
+                .updateDate(comment.getModifiedDate())
+                .comments(List.of())  // 자식 댓글 처리 가능
+                .build();
     }
 }

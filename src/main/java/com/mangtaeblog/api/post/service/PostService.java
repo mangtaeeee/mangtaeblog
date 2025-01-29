@@ -30,12 +30,12 @@ public class PostService {
     // 글 저장
     @Transactional
     public void createPost(PostCreate postCreate) {
-        Member member = memberRepository.findById(postCreate.getMemberId())
+        Member member = memberRepository.findById(postCreate.memberId())
                 .orElseThrow(MemberNotFound::new);
 
         Post post = Post.builder()
-                .title(postCreate.getTitle())
-                .content(postCreate.getContent())
+                .title(postCreate.title())
+                .content(postCreate.content())
                 .writer(member.getUserId())
                 .member(member)
                 .build();
@@ -58,7 +58,7 @@ public class PostService {
                 .view(post.getView())
                 .createDate(post.getCreatedDate())
                 .updateDate(post.getModifiedDate())
-                .comments(post.getComments().stream().map(CommentResponse::new).collect(Collectors.toList()))
+                .comments(post.getComments().stream().map(CommentResponse::of).collect(Collectors.toList()))
                 .build();
     }
 
@@ -76,7 +76,7 @@ public class PostService {
                         .view(post.getView())
                         .updateDate(post.getModifiedDate())
                         .createDate(post.getCreatedDate())
-                        .comments(post.getComments().stream().map(CommentResponse::new).collect(Collectors.toList()))
+                        .comments(post.getComments().stream().map(CommentResponse::of).collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
     }
@@ -84,18 +84,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public Page<PostResponse> getPostsWithPagination(Pageable pageable) {
         return postRepository.findAllWithComments(pageable)
-                .map(post -> PostResponse.builder()
-                        .id(post.getId())
-                        .title(post.getTitle())
-                        .content(post.getContent())
-                        .writer(post.getWriter())
-                        .view(post.getView())
-                        .updateDate(post.getModifiedDate())
-                        .createDate(post.getCreatedDate())
-                        .comments(post.getComments().stream()
-                                .map(CommentResponse::new)
-                                .collect(Collectors.toList()))
-                        .build());
+                .map(PostResponse::of);
     }
 
     @Transactional
@@ -105,8 +94,8 @@ public class PostService {
 
         PostEditor.PostEditorBuilder postEditorBuilder = post.toEditor();
 
-        PostEditor postEditor = postEditorBuilder.title(postEdit.getTitle())
-                .content(postEdit.getContent())
+        PostEditor postEditor = postEditorBuilder.title(postEdit.title())
+                .content(postEdit.content())
                 .build();
 
         post.edit(postEditor);

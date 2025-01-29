@@ -7,20 +7,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 
-@Getter
-@Setter
-@ToString
-public class UserLogin {
+public record UserLogin(
 
-    @NotBlank(message = "아이디를 입력해 주세요.")
-    private String userId;
+        @NotBlank(message = "아이디를 입력해 주세요.")
+        String userId,
 
-    @NotBlank(message = "비밀번호를 입력해 주세요")
-    private String password;
+        @NotBlank(message = "비밀번호를 입력해 주세요")
+        String password
 
-    @Builder
-    public UserLogin(String userId, String password) {
-        this.userId = userId;
-        this.password = password;
-    }
+) {
 }

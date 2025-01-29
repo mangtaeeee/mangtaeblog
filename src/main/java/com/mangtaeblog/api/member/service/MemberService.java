@@ -25,10 +25,10 @@ public class MemberService {
     public Member join(MemberCreate request) {
 
         Member member = Member.builder()
-                .userId(request.getUserId())
-                .username(request.getUsername())
-                .password(request.getPassword())
-                .email(request.getEmail())
+                .userId(request.userId())
+                .username(request.username())
+                .password(request.password())
+                .email(request.email())
                 .role(Role.USER)
                 .build();
 
@@ -37,7 +37,7 @@ public class MemberService {
 
     public MemberResponse singin(UserLogin userLogin) {
 
-        Member member = memberRepository.findByUserIdAndPassword(userLogin.getUserId(), userLogin.getPassword())
+        Member member = memberRepository.findByUserIdAndPassword(userLogin.userId(), userLogin.password())
                 .orElseThrow(MemberInvalidSignInformation::new);
 
         return MemberResponse.builder()
